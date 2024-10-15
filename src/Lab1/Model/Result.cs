@@ -13,4 +13,6 @@ public abstract record Result
     public sealed record TheStationDidNotStopTheTrain() : Result();
 
     public sealed record TheTrainHasNoSpeed() : Result();
+
+    public sealed record MaximumPermissibleSpeed() : Result();
 }

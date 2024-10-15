@@ -4,15 +4,51 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
-public class Train(double weight, double speed, double acceleration, double time, double powerOn)
+/// <summary>
+/// Класс, представляющий собой поезд с набором свойств, таких как вес, скорость, ускорение, время и мощность.
+/// </summary>
+public class Train
 {
-    public double Weight { get; } = weight;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Train"/> class.
+    /// Инициализирует новый экземпляр класса <see cref="Train"/> с заданными весом, скоростью, ускорением, временем и мощностью.
+    /// </summary>
+    /// <param name="weight">Вес поезда.</param>
+    /// <param name="speed">Текущая скорость поезда.</param>
+    /// <param name="acceleration">Текущее ускорение поезда.</param>
+    /// <param name="time">Текущее время.</param>
+    /// <param name="powerOn">Мощность, которую потребляет поезд.</param>
+    public Train(double weight, double speed, double acceleration, double time, double powerOn)
+    {
+        this.Weight = weight;
+        this.Speed = speed;
+        this.Acceleration = acceleration;
+        this.Time = time;
+        this.PowerOn = powerOn;
+    }
 
-    public double Speed { get; set; } = speed;
+    /// <summary>
+    /// Gets вес поезда.
+    /// </summary>
+    public double Weight { get; }
 
-    public double Acceleration { get; set; } = acceleration;
+    /// <summary>
+    /// Gets or sets текущая скорость поезда.
+    /// </summary>
+    public double Speed { get; set; }
 
-    public double Time { get; set; } = time;
+    /// <summary>
+    /// Gets or sets текущее ускорение поезда.
+    /// </summary>
+    public double Acceleration { get; set; }
 
-    public double PowerOn { get; } = powerOn;
+    /// <summary>
+    /// Gets or sets текущее время.
+    /// </summary>
+    public double Time { get; set; }
+
+    /// <summary>
+    /// Gets мощность, которую потребляет поезд.
+    /// </summary>
+    public double PowerOn { get; }
 }

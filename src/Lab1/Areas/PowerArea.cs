@@ -6,13 +6,15 @@ using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Areas;
 
+        /// <inheritdoc/>
 public class PowerArea(int distance, int power) : IArea
-{
+{ /// <inheritdoc/>
     public Result Move(Train train)
     {
         double currentSpeed = train.Speed;
         train.Acceleration = power / train.Weight;
-        train.Speed = Math.Sqrt(Math.Pow(train.Speed, 2) - (2 * train.Acceleration * distance));
+        train.Time = Math.Sqrt(2 * distance / train.Acceleration);
+        train.Speed = (train.Acceleration * train.Time) + currentSpeed;
         if (train.PowerOn < power)
         {
             return new Result.TheTrainCouldntHandleTheAcceleration();
@@ -23,7 +25,6 @@ public class PowerArea(int distance, int power) : IArea
             return new Result.TheTrainHasNoSpeed();
         }
 
-        train.Time = (train.Speed / train.Acceleration) - (currentSpeed / train.Acceleration);
         return new Result.Success();
     }
 }

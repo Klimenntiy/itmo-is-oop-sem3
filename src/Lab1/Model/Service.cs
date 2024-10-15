@@ -7,9 +7,19 @@ using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Model;
 
+/// <summary>
+/// Сервисный класс, предоставляющий методы для управления поездами.
+/// </summary>
 public class Service
 {
-    public static Result Drive(Train train, Collection<IArea> areas)
+    /// <summary>
+    /// Перемещает поезд через последовательность областей и возвращает результат перемещения.
+    /// </summary>
+    /// <param name="train">Поезд, который перемещается через области.</param>
+    /// <param name="areas">Последовательность областей, через которые перемещается поезд.</param>
+    /// <param name="maxSpeed">Максимально допустимая скорость.</param>
+    /// <returns>Результат перемещения поезда через все области.</returns>
+    public static Result Drive(Train train, Collection<IArea> areas, int maxSpeed)
     {
         foreach (IArea area in areas)
         {
@@ -18,6 +28,11 @@ public class Service
             {
                 return result;
             }
+        }
+
+        if (train.Speed > maxSpeed)
+        {
+            return new Result.MaximumPermissibleSpeed();
         }
 
         return new Result.Success();

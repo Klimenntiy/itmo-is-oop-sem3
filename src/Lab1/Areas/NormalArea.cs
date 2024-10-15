@@ -6,8 +6,10 @@ using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Areas;
 
+/// <inheritdoc/>
 public class NormalArea(int distance) : IArea
 {
+    /// <inheritdoc/>
     public Result Move(Train train)
     {
         if (train.Speed <= 0)
