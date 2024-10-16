@@ -1,16 +1,18 @@
-// <copyright file="Service.cs" company="PlaceholderCompany">
+// <copyright file="Travel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Itmo.ObjectOrientedProgramming.Lab1.Areas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
+using Itmo.ObjectOrientedProgramming.Lab1.Model;
 using System.Collections.ObjectModel;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Model;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Service;
 
 /// <summary>
 /// Сервисный класс, предоставляющий методы для управления поездами.
 /// </summary>
-public class Service
+public class Travel
 {
     /// <summary>
     /// Перемещает поезд через последовательность областей и возвращает результат перемещения.

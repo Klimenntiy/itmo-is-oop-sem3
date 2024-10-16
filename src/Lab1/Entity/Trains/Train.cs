@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 
 /// <summary>
 /// Класс, представляющий собой поезд с набором свойств, таких как вес, скорость, ускорение, время и мощность.

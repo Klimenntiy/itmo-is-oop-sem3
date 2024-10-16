@@ -1,6 +1,7 @@
-using Itmo.ObjectOrientedProgramming.Lab1;
-using Itmo.ObjectOrientedProgramming.Lab1.Areas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 using Itmo.ObjectOrientedProgramming.Lab1.Model;
+using Itmo.ObjectOrientedProgramming.Lab1.Service;
 using System.Collections.ObjectModel;
 using Xunit;
 
@@ -23,7 +24,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 10);
+        Result finish = Travel.Drive(train, collectionOfAreas, 10);
 
         bool result = finish is Result.Success;
         Assert.True(result);
@@ -41,7 +42,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 1);
+        Result finish = Travel.Drive(train, collectionOfAreas, 1);
 
         bool result = finish is Result.MaximumPermissibleSpeed;
         Assert.True(result);
@@ -60,7 +61,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 10);
+        Result finish = Travel.Drive(train, collectionOfAreas, 10);
 
         bool result = finish is Result.Success;
         Assert.True(result);
@@ -79,7 +80,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 10);
+        Result finish = Travel.Drive(train, collectionOfAreas, 10);
 
         bool result = finish is Result.TheStationDidNotStopTheTrain;
         Assert.True(result);
@@ -98,7 +99,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 6);
+        Result finish = Travel.Drive(train, collectionOfAreas, 6);
 
         bool result = finish is Result.MaximumPermissibleSpeed;
         Assert.True(result);
@@ -122,7 +123,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 100);
+        Result finish = Travel.Drive(train, collectionOfAreas, 100);
 
         bool result = finish is Result.Success;
         Assert.True(result);
@@ -139,7 +140,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 6);
+        Result finish = Travel.Drive(train, collectionOfAreas, 6);
 
         bool result = finish is Result.TheTrainHasNoSpeed;
         Assert.True(result);
@@ -157,7 +158,7 @@ public class UniTests
 
         var train = new Train(1000, 0, 0, 0, 500);
 
-        Result finish = Service.Drive(train, collectionOfAreas, 6);
+        Result finish = Travel.Drive(train, collectionOfAreas, 6);
 
         bool result = finish is Result.TheTrainCouldntHandleTheAcceleration;
         Assert.True(result);
