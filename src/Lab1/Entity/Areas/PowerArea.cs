@@ -26,6 +26,7 @@ public class PowerArea(int distance, int power) : IArea
             return new Result.TheTrainHasNoSpeed();
         }
 
+        base.Move(train);
         return new Result.Success();
     }
 }

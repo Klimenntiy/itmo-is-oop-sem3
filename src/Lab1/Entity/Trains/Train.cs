@@ -18,13 +18,14 @@ public class Train
     /// <param name="acceleration">Текущее ускорение поезда.</param>
     /// <param name="time">Текущее время.</param>
     /// <param name="powerOn">Мощность, которую потребляет поезд.</param>
-    public Train(double weight, double speed, double acceleration, double time, double powerOn)
+    public Train(double weight, double speed, double acceleration, double time, double powerOn, int aim)
     {
         this.Weight = weight;
         this.Speed = speed;
         this.Acceleration = acceleration;
         this.Time = time;
         this.PowerOn = powerOn;
+        this.Aim = aim;
     }
 
     /// <summary>
@@ -51,4 +52,9 @@ public class Train
     /// Gets мощность, которую потребляет поезд.
     /// </summary>
     public double PowerOn { get; }
+
+    /// <summary>
+    /// Gets мощность, которую потребляет поезд.
+    /// </summary>
+    public int Aim { get; }
 }
