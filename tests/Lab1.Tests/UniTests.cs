@@ -7,22 +7,16 @@ using Xunit;
 
 namespace Lab1.Tests;
 
-/// <summary>
-/// Класс, содержащий тесты для проверки работы сервиса перемещения поездов.
-/// </summary>
 public class UniTests
 {
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_1()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 10);
 
@@ -30,17 +24,14 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_2()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 1);
 
@@ -48,18 +39,15 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_3()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
-        collectionOfAreas.Add(new StationArea(30, 10));
+        collectionOfAreas.Add(new StationArea(15, 10, 30));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 10);
 
@@ -67,18 +55,15 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_4()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
-        collectionOfAreas.Add(new StationArea(30, 5));
+        collectionOfAreas.Add(new StationArea(15, 5, 30));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 10);
 
@@ -86,18 +71,15 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_5()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
-        collectionOfAreas.Add(new StationArea(30, 10));
+        collectionOfAreas.Add(new StationArea(15, 10, 30));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 6);
 
@@ -105,23 +87,20 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_6()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 500));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new PowerArea(100, -150));
-        collectionOfAreas.Add(new StationArea(30, 10));
+        collectionOfAreas.Add(new StationArea(15, 10, 30));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new PowerArea(100, 500));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new PowerArea(100, -500));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 100);
 
@@ -129,16 +108,13 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_7()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new NormalArea(100));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 6);
 
@@ -146,17 +122,14 @@ public class UniTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Тест, проверяющий успешное перемещение поезда через последовательность областей с разными типами.
-    /// </summary>
     [Fact]
     public void Test_8()
     {
-        var collectionOfAreas = new Collection<IArea>();
+        var collectionOfAreas = new Collection<BaseArea>();
         collectionOfAreas.Add(new PowerArea(100, 1000));
         collectionOfAreas.Add(new PowerArea(100, -2000));
 
-        var train = new Train(1000, 0, 0, 0, 500);
+        var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
         Result finish = Travel.Drive(train, collectionOfAreas, 6);
 

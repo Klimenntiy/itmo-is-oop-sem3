@@ -1,24 +1,19 @@
-// <copyright file="NormalArea.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
-/// <inheritdoc/>
-public class NormalArea(int distance) : IArea
+public class NormalArea(int distance) : BaseArea(distance)
 {
-    /// <inheritdoc/>
-    public Result Move(Train train)
+    public override Result Move(Train train)
     {
         if (train.Speed <= 0)
         {
             return new Result.TheTrainHasNoSpeed();
         }
 
-        train.Time += distance / train.Speed;
-        return new Result.Success();
+        train.Time += Distance / train.Speed;
+
+        return base.Move(train);
     }
 }

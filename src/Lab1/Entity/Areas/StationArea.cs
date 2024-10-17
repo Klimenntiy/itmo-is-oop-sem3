@@ -1,24 +1,22 @@
-// <copyright file="StationArea.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
-/// <inheritdoc/>
-public class StationArea(int time, int stopSpeed) : IArea
+public class StationArea(int distance, int stopSpeed, int time) : BaseArea(distance)
 {
-    /// <inheritdoc/>
-    public Result Move(Train train)
+    private int StopSpeed { get; } = stopSpeed;
+
+    private int Time { get; } = time;
+
+    public override Result Move(Train train)
     {
-        if (train.Speed > stopSpeed)
+        if (train.Speed > StopSpeed)
         {
             return new Result.TheStationDidNotStopTheTrain();
         }
 
-        train.Time += time;
-        return new Result.Success();
+        train.Time += Time;
+        return base.Move(train);
     }
 }

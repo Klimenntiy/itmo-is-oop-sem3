@@ -1,22 +1,19 @@
-// <copyright file="PowerArea.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
-        /// <inheritdoc/>
-public class PowerArea(int distance, int power) : IArea
-{ /// <inheritdoc/>
-    public Result Move(Train train)
+public class PowerArea(double distance, double power) : BaseArea(distance)
+{
+    private double Power { get; } = power;
+
+    public override Result Move(Train train)
     {
         double currentSpeed = train.Speed;
-        train.Acceleration = power / train.Weight;
-        train.Time = Math.Sqrt(2 * distance / train.Acceleration);
+        train.Acceleration = Power / train.Weight;
+        train.Time = Math.Sqrt(2 * Distance / train.Acceleration);
         train.Speed = (train.Acceleration * train.Time) + currentSpeed;
-        if (train.PowerOn < power)
+        if (train.PowerOn < Power)
         {
             return new Result.TheTrainCouldntHandleTheAcceleration();
         }
@@ -26,7 +23,6 @@ public class PowerArea(int distance, int power) : IArea
             return new Result.TheTrainHasNoSpeed();
         }
 
-        base.Move(train);
-        return new Result.Success();
+        return base.Move(train);
     }
 }
