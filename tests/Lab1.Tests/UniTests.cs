@@ -10,7 +10,7 @@ namespace Lab1.Tests;
 public class UniTests
 {
     [Fact]
-    public void Test_1()
+    public void CheckForPermissibleRouteSpeedWithPassingOf()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
@@ -28,7 +28,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_2()
+    public void CheckingThePermissibleSpeedOfAnOverspeedRoute()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
@@ -43,7 +43,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_3()
+    public void CheckingThePermissibleSpeedOnTheRouteAndStationWithPassingThe()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
@@ -62,7 +62,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_4()
+    public void CheckOfThePermissibleSpeedOfPassingTheStationWithExcessiveSpeed()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
@@ -78,7 +78,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_5()
+    public void AccelerationToTheAllowableSpeedOfTheRouteButNotTheStation()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
@@ -94,7 +94,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_6()
+    public void SpeedReductionCheckForStationAndRoute()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 500));
@@ -118,7 +118,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_7()
+    public void TheresNoAcceleration()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new NormalArea(100));
@@ -132,7 +132,7 @@ public class UniTests
     }
 
     [Fact]
-    public void Test_8()
+    public void TheTrainCouldntWithstandTheForceApplied()
     {
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 1000));
