@@ -7,9 +7,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Service;
 
 public class Travel
 {
-    public static Result Drive(Train train, Collection<BaseArea> areas, int maxSpeed)
+    public static Result Drive(Train train, Collection<IArea> areas, int maxSpeed)
     {
-        foreach (BaseArea area in areas)
+        foreach (IArea area in areas)
         {
             Result result = area.Move(train);
             if (result is not Result.Success)
@@ -23,6 +23,6 @@ public class Travel
             return new Result.MaximumPermissibleSpeed();
         }
 
-        return new Result.Success();
+        return new Result.Success(train.Time);
     }
 }

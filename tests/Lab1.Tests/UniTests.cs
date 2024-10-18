@@ -12,7 +12,7 @@ public class UniTests
     [Fact]
     public void Test_1()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
 
@@ -22,12 +22,15 @@ public class UniTests
 
         bool result = finish is Result.Success;
         Assert.True(result);
+        var res = (Result.Success)finish;
+        double expected = 41.819888461721021;
+        Assert.Equal(res.Result, expected);
     }
 
     [Fact]
     public void Test_2()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
 
@@ -42,7 +45,7 @@ public class UniTests
     [Fact]
     public void Test_3()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new StationArea(15, 10, 30));
@@ -53,12 +56,15 @@ public class UniTests
 
         bool result = finish is Result.Success;
         Assert.True(result);
+        var res = (Result.Success)finish;
+        double expected = 71.819888461721021;
+        Assert.Equal(res.Result, expected);
     }
 
     [Fact]
     public void Test_4()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new StationArea(15, 5, 30));
@@ -74,14 +80,14 @@ public class UniTests
     [Fact]
     public void Test_5()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 300));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new StationArea(15, 10, 30));
 
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
-        Result finish = Travel.Drive(train, collectionOfAreas, 6);
+        Result finish = Travel.Drive(train, collectionOfAreas, 5);
 
         bool result = finish is Result.MaximumPermissibleSpeed;
         Assert.True(result);
@@ -90,15 +96,15 @@ public class UniTests
     [Fact]
     public void Test_6()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 500));
         collectionOfAreas.Add(new NormalArea(100));
-        collectionOfAreas.Add(new PowerArea(100, -150));
+        collectionOfAreas.Add(new PowerArea(100, -130));
         collectionOfAreas.Add(new StationArea(15, 10, 30));
         collectionOfAreas.Add(new NormalArea(100));
         collectionOfAreas.Add(new PowerArea(100, 500));
         collectionOfAreas.Add(new NormalArea(100));
-        collectionOfAreas.Add(new PowerArea(100, -500));
+        collectionOfAreas.Add(new PowerArea(100, -400));
 
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
 
@@ -106,12 +112,15 @@ public class UniTests
 
         bool result = finish is Result.Success;
         Assert.True(result);
+        var res = (Result.Success)finish;
+        double expected = 178.58390735538438;
+        Assert.Equal(res.Result, expected);
     }
 
     [Fact]
     public void Test_7()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new NormalArea(100));
 
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
@@ -125,7 +134,7 @@ public class UniTests
     [Fact]
     public void Test_8()
     {
-        var collectionOfAreas = new Collection<BaseArea>();
+        var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 1000));
         collectionOfAreas.Add(new PowerArea(100, -2000));
 

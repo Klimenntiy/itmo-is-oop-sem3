@@ -3,26 +3,42 @@ using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
-public class PowerArea(double distance, double power) : BaseArea(distance)
+public class PowerArea : IArea
 {
-    private double Power { get; } = power;
+    private readonly float _power;
 
-    public override Result Move(Train train)
+    public PowerArea(long distance, float power)
     {
-        double currentSpeed = train.Speed;
-        train.Acceleration = Power / train.Weight;
-        train.Time = Math.Sqrt(2 * Distance / train.Acceleration);
-        train.Speed = (train.Acceleration * train.Time) + currentSpeed;
-        if (train.PowerOn < Power)
+        Distance = distance;
+        _power = power;
+    }
+
+    public long Distance { get; set; }
+
+    public Result Move(Train train)
+    {
+        train.Acceleration = _power / train.Weight;
+
+        train.Time += Math.Sqrt(2.0 * Distance / double.Abs(train.Acceleration));
+
+        if (train.PowerOn < _power)
         {
             return new Result.TheTrainCouldntHandleTheAcceleration();
         }
 
-        if (train.Speed <= 0)
+        while (Distance > 0)
         {
-            return new Result.TheTrainHasNoSpeed();
+            train.Speed = (long)(train.Speed + (train.Acceleration * train.Aim));
+            if (train.Speed <= 0)
+            {
+                return new Result.TheTrainHasNoSpeed();
+            }
+
+            long resultDistance = train.Speed * train.Aim;
+            Distance -= resultDistance;
+            train.Distance += resultDistance;
         }
 
-        return base.Move(train);
+        return new Result.Success(train.Time);
     }
 }

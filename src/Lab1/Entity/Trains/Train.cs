@@ -1,25 +1,25 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 
 public class Train(
-    double weight,
-    double speed,
-    double acceleration,
+    uint weight,
+    long speed,
+    float acceleration,
     double time,
-    double powerOn,
-    double aim,
-    double distance)
+    uint powerOn,
+    uint aim,
+    uint distance)
 {
-    public double Weight { get; } = weight;
+    public uint Weight { get; } = weight;
 
-    public double Speed { get; set; } = speed;
+    public long Speed { get; set; } = speed;
 
-    public double Acceleration { get; set; } = acceleration;
+    public float Acceleration { get; set; } = acceleration;
 
     public double Time { get; set; } = time;
 
-    public double PowerOn { get; } = powerOn;
+    public uint PowerOn { get; } = powerOn;
 
-    public double Aim { get; } = aim;
+    public uint Aim { get; } = aim;
 
-    public double Distance { get; set; } = distance;
+    public long Distance { get; set; } = distance;
 }
