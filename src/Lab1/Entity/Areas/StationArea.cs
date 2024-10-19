@@ -1,39 +1,29 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
-using Itmo.ObjectOrientedProgramming.Lab1.Model;
+using Itmo.ObjectOrientedProgramming.Lab1.Service;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class StationArea : IArea
 {
-    public StationArea(uint distance, uint stopSpeed, uint stopTime)
+    private readonly TrainService _trainService;
+
+    public StationArea(int distance, uint stopSpeed, uint stopTime, TrainService trainService)
     {
-        _distance = distance;
-        _stopSpeed = stopSpeed;
-        _stopTime = stopTime;
+        StopSpeed = stopSpeed;
+        StopTime = stopTime;
+        _trainService = trainService;
+        Distance = distance;
     }
 
-    private readonly uint _stopSpeed;
+    public uint StopSpeed { get; set; }
 
-    private readonly uint _stopTime;
+    public uint StopTime { get; set; }
 
-    private long _distance;
+    public int Distance { get; set; }
 
     public Result Move(Train train)
     {
-        if (train.Speed > _stopSpeed)
-        {
-            return new Result.TheStationDidNotStopTheTrain();
-        }
-
-        train.Time += _stopTime;
-        while (_distance > 0)
-        {
-            long resultSpeed = (long)(train.Speed + (train.Acceleration * train.Aim));
-            long resultDistance = resultSpeed * train.Aim;
-            _distance -= resultDistance;
-            train.Distance += resultDistance;
-        }
-
-        return new Result.Success(train.Time);
+        return _trainService.MoveStationArea(train, Distance, StopSpeed, StopSpeed);
     }
 }

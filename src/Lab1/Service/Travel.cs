@@ -1,20 +1,26 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
-using Itmo.ObjectOrientedProgramming.Lab1.Model;
-using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Service;
 
 public class Travel
 {
-    public static Result Drive(Train train, Collection<IArea> areas, int maxSpeed)
+    private readonly IReadOnlyCollection<IArea> _areas;
+
+    public Travel(IReadOnlyCollection<IArea> areas)
     {
-        foreach (IArea area in areas)
+        _areas = areas;
+    }
+
+    public Result Drive(Train train, int maxSpeed)
+    {
+        foreach (IArea area in _areas)
         {
-            Result result = area.Move(train);
-            if (result is not Result.Success)
+            Result trainResult = area.Move(train);
+            if (trainResult is not Result.TravelSuccessResult)
             {
-                return result;
+                return trainResult;
             }
         }
 
@@ -23,6 +29,6 @@ public class Travel
             return new Result.MaximumPermissibleSpeed();
         }
 
-        return new Result.Success(train.Time);
+        return new Result.TravelSuccessResult(train.Time);
     }
 }

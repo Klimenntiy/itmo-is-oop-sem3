@@ -1,44 +1,26 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
-using Itmo.ObjectOrientedProgramming.Lab1.Model;
+using Itmo.ObjectOrientedProgramming.Lab1.Service;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class PowerArea : IArea
 {
-    private readonly float _power;
+    private readonly TrainService _trainService;
 
-    public PowerArea(long distance, float power)
+    public PowerArea(int distance, int power, TrainService trainService)
     {
         Distance = distance;
-        _power = power;
+        Power = power;
+        _trainService = trainService;
     }
 
-    public long Distance { get; set; }
+    public int Power { get; set; }
+
+    public int Distance { get; set; }
 
     public Result Move(Train train)
     {
-        train.Acceleration = _power / train.Weight;
-
-        train.Time += Math.Sqrt(2.0 * Distance / double.Abs(train.Acceleration));
-
-        if (train.PowerOn < _power)
-        {
-            return new Result.TheTrainCouldntHandleTheAcceleration();
-        }
-
-        while (Distance > 0)
-        {
-            train.Speed = (long)(train.Speed + (train.Acceleration * train.Aim));
-            if (train.Speed <= 0)
-            {
-                return new Result.TheTrainHasNoSpeed();
-            }
-
-            long resultDistance = train.Speed * train.Aim;
-            Distance -= resultDistance;
-            train.Distance += resultDistance;
-        }
-
-        return new Result.Success(train.Time);
+        return _trainService.MovePowerArea(train, Power, Distance);
     }
 }

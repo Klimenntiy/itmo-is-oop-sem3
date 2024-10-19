@@ -1,5 +1,5 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
-using Itmo.ObjectOrientedProgramming.Lab1.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 

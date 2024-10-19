@@ -1,33 +1,23 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
-using Itmo.ObjectOrientedProgramming.Lab1.Model;
+using Itmo.ObjectOrientedProgramming.Lab1.Service;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class NormalArea : IArea
 {
-    private long _distance;
+    private readonly TrainService _trainService;
 
-    public NormalArea(long distance)
+    public int Distance { get; set; }
+
+    public NormalArea(int distance, TrainService trainService)
     {
-        _distance = distance;
+        Distance = distance;
+        _trainService = trainService;
     }
 
     public Result Move(Train train)
     {
-        if (train.Speed <= 0)
-        {
-            return new Result.TheTrainHasNoSpeed();
-        }
-
-        train.Time += _distance / train.Speed;
-        while (_distance > 0)
-        {
-            long resultSpeed = (long)(train.Speed + (train.Acceleration * train.Aim));
-            long resultDistance = resultSpeed * train.Aim;
-            _distance -= resultDistance;
-            train.Distance += resultDistance;
-        }
-
-        return new Result.Success(train.Time);
+        return _trainService.MoveNormalArea(train, Distance);
     }
 }
