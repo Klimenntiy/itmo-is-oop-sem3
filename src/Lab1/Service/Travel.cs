@@ -15,20 +15,23 @@ public class Travel
 
     public Result Drive(Train train, int maxSpeed)
     {
+        Train currentTrain = train;
         foreach (IArea area in _areas)
         {
-            Result trainResult = area.Move(train);
+            Result trainResult = area.Move(currentTrain);
             if (trainResult is not Result.TravelSuccessResult)
             {
                 return trainResult;
             }
+
+            currentTrain = ((Result.TravelSuccessResult)trainResult).Train;
         }
 
-        if (train.Speed > maxSpeed)
+        if (currentTrain.Speed > maxSpeed)
         {
             return new Result.MaximumPermissibleSpeed();
         }
 
-        return new Result.TravelSuccessResult(train.Time);
+        return new Result.TravelSuccessResult(train);
     }
 }
