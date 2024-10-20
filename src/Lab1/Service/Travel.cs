@@ -19,12 +19,25 @@ public class Travel
         foreach (IArea area in _areas)
         {
             Result trainResult = area.Move(currentTrain);
-            if (trainResult is not Result.TravelSuccessResult)
+            if (trainResult is not SuccessResult.TravelSuccessResultNormalArea & trainResult is not SuccessResult.TravelSuccessResultStationArea & trainResult is not SuccessResult.TravelSuccessResultPowerArea)
             {
                 return trainResult;
             }
 
-            currentTrain = ((Result.TravelSuccessResult)trainResult).Train;
+            if (trainResult is SuccessResult.TravelSuccessResultNormalArea)
+            {
+                currentTrain = ((SuccessResult.TravelSuccessResultNormalArea)trainResult).Train;
+            }
+
+            if (trainResult is SuccessResult.TravelSuccessResultPowerArea)
+            {
+                currentTrain = ((SuccessResult.TravelSuccessResultPowerArea)trainResult).Train;
+            }
+
+            if (trainResult is SuccessResult.TravelSuccessResultStationArea)
+            {
+                currentTrain = ((SuccessResult.TravelSuccessResultStationArea)trainResult).Train;
+            }
         }
 
         if (currentTrain.Speed > maxSpeed)

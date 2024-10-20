@@ -21,7 +21,7 @@ public class TrainService
             train = train with { Distance = (uint)(train.Distance + resultDistance) };
         }
 
-        return new Result.TravelSuccessResult(train);
+        return new SuccessResult.TravelSuccessResultNormalArea(train);
     }
 
     public Result MovePowerArea(Train train, int power, int distance)
@@ -48,7 +48,7 @@ public class TrainService
             train = train with { Distance = (uint)(train.Distance + resultDistance) };
         }
 
-        return new Result.TravelSuccessResult(train);
+        return new SuccessResult.TravelSuccessResultPowerArea(train);
     }
 
     public Result MoveStationArea(Train train, int distance, uint stopSpeed, uint stopTime)
@@ -67,7 +67,7 @@ public class TrainService
             train = train with { Distance = (uint)(train.Distance + resultDistance) };
         }
 
-        return new Result.TravelSuccessResult(train);
+        return new SuccessResult.TravelSuccessResultStationArea(train);
     }
 
     private static float CalculateTrainAcceleration(Train train, float power)
