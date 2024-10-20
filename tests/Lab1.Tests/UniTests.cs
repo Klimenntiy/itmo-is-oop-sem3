@@ -19,10 +19,11 @@ public class UniTests
         collectionOfAreas.Add(new NormalArea(100, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 10);
-
-        bool result = finish is Result.TravelSuccessResult;
+        bool trainResult = finish is Result.TravelSuccessResult;
         var res = (Result.TravelSuccessResult)finish;
-        Assert.True(result);
+        int trainTime = 41;
+        Assert.True(trainResult);
+        Assert.Equal(res.Train.Time, trainTime);
     }
 
     [Fact]
@@ -35,8 +36,7 @@ public class UniTests
         collectionOfAreas.Add(new NormalArea(100, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 1);
-
-        bool trainResult = finish is Result.MaximumPermissibleSpeed;
+        bool trainResult = finish is AreaResult.MaximumPermissibleSpeed;
         Assert.True(trainResult);
     }
 
@@ -51,9 +51,11 @@ public class UniTests
         collectionOfAreas.Add(new StationArea(15, 10, 30, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 10);
-
         bool trainResult = finish is Result.TravelSuccessResult;
+        var res = (Result.TravelSuccessResult)finish;
+        int trainTime = 51;
         Assert.True(trainResult);
+        Assert.Equal(res.Train.Time, trainTime);
     }
 
     [Fact]
@@ -67,8 +69,7 @@ public class UniTests
         collectionOfAreas.Add(new StationArea(15, 5, 30, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 10);
-
-        bool trainResult = finish is Result.TheStationDidNotStopTheTrain;
+        bool trainResult = finish is AreaResult.TheStationDidNotStopTheTrain;
         Assert.True(trainResult);
     }
 
@@ -83,8 +84,7 @@ public class UniTests
         collectionOfAreas.Add(new StationArea(15, 10, 30, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 5);
-
-        bool trainResult = finish is Result.MaximumPermissibleSpeed;
+        bool trainResult = finish is AreaResult.MaximumPermissibleSpeed;
         Assert.True(trainResult);
     }
 
@@ -104,9 +104,11 @@ public class UniTests
         collectionOfAreas.Add(new PowerArea(100, -400, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 100);
-
         bool trainResult = finish is Result.TravelSuccessResult;
+        var res = (Result.TravelSuccessResult)finish;
+        int trainTime = 158;
         Assert.True(trainResult);
+        Assert.Equal(res.Train.Time, trainTime);
     }
 
     [Fact]
@@ -118,8 +120,7 @@ public class UniTests
         collectionOfAreas.Add(new NormalArea(100, trainService));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 6);
-
-        bool trainResult = finish is Result.TheTrainHasNoSpeed;
+        bool trainResult = finish is TrainResult.TheTrainHasNoSpeed;
         Assert.True(trainResult);
     }
 
@@ -134,7 +135,7 @@ public class UniTests
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 6);
 
-        bool trainResult = finish is Result.TheTrainCouldntHandleTheAcceleration;
+        bool trainResult = finish is TrainResult.TheTrainCouldntHandleTheAcceleration;
         Assert.True(trainResult);
     }
 }

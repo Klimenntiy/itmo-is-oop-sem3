@@ -9,7 +9,7 @@ public class TrainService
     {
         if (train.Speed <= 0)
         {
-            return new Result.TheTrainHasNoSpeed();
+            return new TrainResult.TheTrainHasNoSpeed();
         }
 
         train = train with { Time = train.Time + (uint)CalculateTrainTime(train, distance) };
@@ -32,7 +32,7 @@ public class TrainService
 
         if (train.PowerOn < power)
         {
-            return new Result.TheTrainCouldntHandleTheAcceleration();
+            return new TrainResult.TheTrainCouldntHandleTheAcceleration();
         }
 
         while (distance > 0)
@@ -40,7 +40,7 @@ public class TrainService
             train = train with { Speed = (uint)CalculatePowerTrainSpeed(train) };
             if (train.Speed <= 0)
             {
-                return new Result.TheTrainHasNoSpeed();
+                return new TrainResult.TheTrainHasNoSpeed();
             }
 
             long resultDistance = CalculateTrainResultDistance(train);
@@ -55,7 +55,7 @@ public class TrainService
     {
         if (train.Speed > stopSpeed)
         {
-            return new Result.TheStationDidNotStopTheTrain();
+            return new AreaResult.TheStationDidNotStopTheTrain();
         }
 
         train = train with { Time = train.Time + stopTime };
@@ -79,7 +79,7 @@ public class TrainService
     private static float CalculateTrainTimeInPowerArea(Train train, int distance)
     {
         float acceleration = train.Acceleration;
-        return (float)Math.Sqrt(2 * distance / acceleration);
+        return (float)Math.Sqrt(2 * distance / double.Abs(acceleration));
     }
 
     private static long CalculateTrainTime(Train train, int distance)

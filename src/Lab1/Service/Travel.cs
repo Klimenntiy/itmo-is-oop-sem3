@@ -29,9 +29,9 @@ public class Travel
 
         if (currentTrain.Speed > maxSpeed)
         {
-            return new Result.MaximumPermissibleSpeed();
+            return new AreaResult.MaximumPermissibleSpeed();
         }
 
-        return new Result.TravelSuccessResult(train);
+        return new Result.TravelSuccessResult(currentTrain);
     }
 }
