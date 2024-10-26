@@ -12,11 +12,10 @@ public class UniTests
     [Fact]
     public void CheckForPermissibleRouteSpeedWithPassingOf()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new List<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 300, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 300));
+        collectionOfAreas.Add(new NormalArea(100));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 10);
         bool trainResult = finish is Result.TravelSuccessResult;
@@ -29,11 +28,10 @@ public class UniTests
     [Fact]
     public void CheckingThePermissibleSpeedOfAnOverspeedRoute()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new List<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 300, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 300));
+        collectionOfAreas.Add(new NormalArea(100));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 1);
         bool trainResult = finish is AreaResult.MaximumPermissibleSpeed;
@@ -43,12 +41,11 @@ public class UniTests
     [Fact]
     public void CheckingThePermissibleSpeedOnTheRouteAndStationWithPassingThe()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new List<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 300, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
-        collectionOfAreas.Add(new StationArea(15, 10, 30, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 300));
+        collectionOfAreas.Add(new NormalArea(100));
+        collectionOfAreas.Add(new StationArea(15, 10, 30));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 10);
         bool trainResult = finish is Result.TravelSuccessResult;
@@ -61,12 +58,11 @@ public class UniTests
     [Fact]
     public void CheckOfThePermissibleSpeedOfPassingTheStationWithExcessiveSpeed()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new Collection<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 300, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
-        collectionOfAreas.Add(new StationArea(15, 5, 30, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 300));
+        collectionOfAreas.Add(new NormalArea(100));
+        collectionOfAreas.Add(new StationArea(15, 5, 30));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 10);
         bool trainResult = finish is AreaResult.TheStationDidNotStopTheTrain;
@@ -76,12 +72,11 @@ public class UniTests
     [Fact]
     public void AccelerationToTheAllowableSpeedOfTheRouteButNotTheStation()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new Collection<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 300, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
-        collectionOfAreas.Add(new StationArea(15, 10, 30, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 300));
+        collectionOfAreas.Add(new NormalArea(100));
+        collectionOfAreas.Add(new StationArea(15, 10, 30));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 5);
         bool trainResult = finish is AreaResult.MaximumPermissibleSpeed;
@@ -91,17 +86,16 @@ public class UniTests
     [Fact]
     public void SpeedReductionCheckForStationAndRoute()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new Collection<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 500, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
-        collectionOfAreas.Add(new PowerArea(100, -130, trainService));
-        collectionOfAreas.Add(new StationArea(15, 10, 30, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
-        collectionOfAreas.Add(new PowerArea(100, 500, trainService));
-        collectionOfAreas.Add(new NormalArea(100, trainService));
-        collectionOfAreas.Add(new PowerArea(100, -400, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 500));
+        collectionOfAreas.Add(new NormalArea(100));
+        collectionOfAreas.Add(new PowerArea(100, -130));
+        collectionOfAreas.Add(new StationArea(15, 10, 30));
+        collectionOfAreas.Add(new NormalArea(100));
+        collectionOfAreas.Add(new PowerArea(100, 500));
+        collectionOfAreas.Add(new NormalArea(100));
+        collectionOfAreas.Add(new PowerArea(100, -400));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 100);
         bool trainResult = finish is Result.TravelSuccessResult;
@@ -114,10 +108,9 @@ public class UniTests
     [Fact]
     public void TheresNoAcceleration()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new Collection<IArea>();
-        collectionOfAreas.Add(new NormalArea(100, trainService));
+        collectionOfAreas.Add(new NormalArea(100));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 6);
         bool trainResult = finish is TrainResult.TheTrainHasNoSpeed;
@@ -127,11 +120,10 @@ public class UniTests
     [Fact]
     public void TheTrainCouldntWithstandTheForceApplied()
     {
-        var trainService = new TrainService();
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new Collection<IArea>();
-        collectionOfAreas.Add(new PowerArea(100, 1000, trainService));
-        collectionOfAreas.Add(new PowerArea(100, -2000, trainService));
+        collectionOfAreas.Add(new PowerArea(100, 1000));
+        collectionOfAreas.Add(new PowerArea(100, -2000));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 6);
 
