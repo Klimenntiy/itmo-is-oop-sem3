@@ -11,9 +11,9 @@ public class PowerArea : IArea
         Power = power;
     }
 
-    public int Power { get; }
+    private int Power { get; }
 
-    public uint Distance { get; }
+    private uint Distance { get; }
 
     public Result Move(Train train)
     {

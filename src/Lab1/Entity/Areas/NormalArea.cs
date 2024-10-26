@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class NormalArea : IArea
 {
-    public uint Distance { get; }
+    private uint Distance { get; }
 
     public NormalArea(uint distance)
     {

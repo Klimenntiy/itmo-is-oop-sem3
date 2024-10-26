@@ -12,11 +12,11 @@ public class StationArea : IArea
         Distance = distance;
     }
 
-    public uint StopSpeed { get; }
-
     public uint StopTime { get; }
 
-    public uint Distance { get; }
+    private uint StopSpeed { get; }
+
+    private uint Distance { get; }
 
     public Result Move(Train train)
     {
