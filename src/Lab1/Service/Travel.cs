@@ -23,21 +23,6 @@ public class Travel
             {
                 return trainResult;
             }
-
-            if (trainResult is SuccessResult.TravelSuccessResultNormalArea)
-            {
-                currentTrain = ((SuccessResult.TravelSuccessResultNormalArea)trainResult).Train;
-            }
-
-            if (trainResult is SuccessResult.TravelSuccessResultPowerArea)
-            {
-                currentTrain = ((SuccessResult.TravelSuccessResultPowerArea)trainResult).Train;
-            }
-
-            if (trainResult is SuccessResult.TravelSuccessResultStationArea)
-            {
-                currentTrain = ((SuccessResult.TravelSuccessResultStationArea)trainResult).Train;
-            }
         }
 
         if (currentTrain.Speed > maxSpeed)
@@ -45,6 +30,6 @@ public class Travel
             return new AreaResult.MaximumPermissibleSpeed();
         }
 
-        return new Result.TravelSuccessResult(currentTrain);
+        return new Result.TravelSuccessResult();
     }
 }

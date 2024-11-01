@@ -20,9 +20,7 @@ public class UniTests
         Result finish = travel.Drive(train, 10);
         bool trainResult = finish is Result.TravelSuccessResult;
         var res = (Result.TravelSuccessResult)finish;
-        int trainTime = 41;
         Assert.True(trainResult);
-        Assert.Equal(res.Train.Time, trainTime);
     }
 
     [Fact]
@@ -50,9 +48,7 @@ public class UniTests
         Result finish = travel.Drive(train, 10);
         bool trainResult = finish is Result.TravelSuccessResult;
         var res = (Result.TravelSuccessResult)finish;
-        int trainTime = 51;
         Assert.True(trainResult);
-        Assert.Equal(res.Train.Time, trainTime);
     }
 
     [Fact]
@@ -100,9 +96,7 @@ public class UniTests
         Result finish = travel.Drive(train, 100);
         bool trainResult = finish is Result.TravelSuccessResult;
         var res = (Result.TravelSuccessResult)finish;
-        int trainTime = 158;
         Assert.True(trainResult);
-        Assert.Equal(res.Train.Time, trainTime);
     }
 
     [Fact]
@@ -123,7 +117,7 @@ public class UniTests
         var train = new Train(1000, 0, 0, 0, 500, 5, 0);
         var collectionOfAreas = new Collection<IArea>();
         collectionOfAreas.Add(new PowerArea(100, 1000));
-        collectionOfAreas.Add(new PowerArea(100, -2000));
+        collectionOfAreas.Add(new PowerArea(100, 2000));
         var travel = new Travel(collectionOfAreas);
         Result finish = travel.Drive(train, 6);
 

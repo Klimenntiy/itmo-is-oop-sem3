@@ -1,25 +1,28 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.DistanceValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.StopSpeedValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.StopTimeValue;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class StationArea : IArea
 {
-    public StationArea(uint distance, uint stopSpeed, uint stopTime)
+    public StationArea(double distanceValue, double stopSpeedValue, double stopTimeValue)
     {
-        StopSpeed = stopSpeed;
-        StopTime = stopTime;
-        Distance = distance;
+        StopSpeed = new StopSpeed(stopSpeedValue);
+        StopTime = new StopTime(stopTimeValue);
+        Distance = new Distance(distanceValue);
     }
 
-    public uint StopTime { get; }
+    private StopTime StopTime { get; }
 
-    private uint StopSpeed { get; }
+    private StopSpeed StopSpeed { get; }
 
-    private uint Distance { get; }
+    private Distance Distance { get; }
 
     public Result Move(Train train)
     {
-        return train.MoveStationArea(train, Distance, StopSpeed, StopSpeed);
+        return train.MoveStationArea(Distance, StopSpeed, StopTime);
     }
 }

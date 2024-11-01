@@ -1,22 +1,23 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.DistanceValue;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class PowerArea : IArea
 {
-    public PowerArea(uint distance, int power)
+    public PowerArea(double distanceValue, double power)
     {
-        Distance = distance;
+        Distance = new Distance(distanceValue);
         Power = power;
     }
 
-    private int Power { get; }
+    private double Power { get; }
 
-    private uint Distance { get; }
+    private Distance Distance { get; }
 
     public Result Move(Train train)
     {
-        return train.MovePowerArea(train, Power, Distance);
+        return train.MovePowerArea(Power, Distance);
     }
 }

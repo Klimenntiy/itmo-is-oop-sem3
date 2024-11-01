@@ -1,19 +1,20 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.DistanceValue;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public class NormalArea : IArea
 {
-    private uint Distance { get; }
+    private Distance Distance { get; }
 
-    public NormalArea(uint distance)
+    public NormalArea(double distanceValue)
     {
-        Distance = distance;
+        Distance = new Distance(distanceValue);
     }
 
     public Result Move(Train train)
     {
-        return train.MoveNormalArea(train, Distance);
+        return train.MoveNormalArea(Distance);
     }
 }

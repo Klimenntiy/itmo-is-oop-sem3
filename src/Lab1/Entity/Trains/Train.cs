@@ -1,121 +1,143 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.AimValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.DistanceValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.PowerOnValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.SpeedValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.TimeValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.WeightValue;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Trains;
 
-public record Train(
-    uint Weight,
-    uint Speed,
-    float Acceleration,
-    float Time,
-    uint PowerOn,
-    uint Aim,
-    uint Distance)
+public class Train
 {
-    public Result MoveNormalArea(Train train, uint distance)
+    public Weight Weight { get; }
+
+    public Speed Speed { get; private set; }
+
+    public double Acceleration { get; private set; }
+
+    public Time Time { get; private set; }
+
+    public PowerOn PowerOn { get; }
+
+    public Aim Aim { get; }
+
+    public Distance Distance { get; private set; }
+
+    public Train(double weightValue, double speedValue, double acceleration, double timeValue, double powerOnValue, double aimValue, double distanceValue)
     {
-        if (train.Speed <= 0)
+        Weight = new Weight(weightValue);
+        Speed = new Speed(speedValue);
+        Acceleration = acceleration;
+        Time = new Time(timeValue);
+        PowerOn = new PowerOn(powerOnValue);
+        Aim = new Aim(aimValue);
+        Distance = new Distance(distanceValue);
+    }
+
+    public Result MoveNormalArea(double distance)
+    {
+        if (Speed <= 0)
         {
             return new TrainResult.TheTrainHasNoSpeed();
         }
 
-        train = train with { Time = train.Time + (uint)CalculateTrainTime(train, distance) };
-        int currentDistance = (int)distance;
+        Time = new Time(Time.Value + CalculateTrainTime(distance));
+        double currentDistance = distance;
         while (currentDistance > 0)
         {
-            train = train with { Speed = (uint)CalculateNormalTrainSpeed(train) };
-            long resultDistance = CalculateTrainResultDistance(train);
-            currentDistance -= (int)resultDistance;
-            train = train with { Distance = (uint)(train.Distance + resultDistance) };
+            Speed = new Speed(CalculateNormalTrainSpeed());
+            double resultDistance = CalculateTrainResultDistance();
+            currentDistance -= resultDistance;
+            Distance = new Distance(Distance.Value + resultDistance);
         }
 
-        return new SuccessResult.TravelSuccessResultNormalArea(train);
+        return new SuccessResult.TravelSuccessResultNormalArea();
     }
 
-    public Result MovePowerArea(Train train, int power, uint distance)
+    public Result MovePowerArea(double power, double distance)
     {
-        train = train with { Acceleration = CalculateTrainAcceleration(train, power) };
+        Acceleration = CalculateTrainAcceleration(power);
+        Time = new Time(Time.Value + CalculateTrainTimeInPowerArea(distance));
 
-        train = train with { Time = (uint)(train.Time + CalculateTrainTimeInPowerArea(train, distance)) };
-
-        if (train.PowerOn < power)
+        if (PowerOn < power)
         {
             return new TrainResult.TheTrainCouldntHandleTheAcceleration();
         }
 
-        int currentDistance = (int)distance;
+        double currentDistance = distance;
         while (currentDistance > 0)
         {
-            train = train with { Speed = (uint)CalculatePowerTrainSpeed(train) };
-            if (train.Speed <= 0)
+            Speed = new Speed(CalculatePowerTrainSpeed());
+            if (Speed <= 0)
             {
                 return new TrainResult.TheTrainHasNoSpeed();
             }
 
-            long resultDistance = CalculateTrainResultDistance(train);
-            currentDistance -= (int)resultDistance;
-            train = train with { Distance = (uint)(train.Distance + resultDistance) };
+            double resultDistance = CalculateTrainResultDistance();
+            currentDistance -= resultDistance;
+            Distance = new Distance(Distance.Value + resultDistance);
         }
 
-        return new SuccessResult.TravelSuccessResultPowerArea(train);
+        return new SuccessResult.TravelSuccessResultPowerArea();
     }
 
-    public Result MoveStationArea(Train train, uint distance, uint stopSpeed, uint stopTime)
+    public Result MoveStationArea(double distance, double stopSpeed, double stopTime)
     {
-        if (train.Speed > stopSpeed)
+        if (Speed > stopSpeed)
         {
             return new AreaResult.TheStationDidNotStopTheTrain();
         }
 
-        train = train with { Time = train.Time + stopTime };
-        int currentDistance = (int)distance;
+        Time = new Time(Time.Value + stopTime);
+        double currentDistance = distance;
         while (currentDistance > 0)
         {
-            train = train with { Speed = (uint)CalculateNormalTrainSpeed(train) };
-            long resultDistance = CalculateTrainResultDistance(train);
-            currentDistance -= (int)resultDistance;
-            train = train with { Distance = (uint)(train.Distance + resultDistance) };
+            Speed = new Speed(CalculateNormalTrainSpeed());
+            double resultDistance = CalculateTrainResultDistance();
+            currentDistance -= resultDistance;
+            Distance = new Distance(Distance.Value + resultDistance);
         }
 
-        return new SuccessResult.TravelSuccessResultStationArea(train);
+        return new SuccessResult.TravelSuccessResultStationArea();
     }
 
-    private static float CalculateTrainAcceleration(Train train, float power)
+    private double CalculateTrainAcceleration(double power)
     {
-        uint weight = train.Weight;
+        double weight = Weight;
         return power / weight;
     }
 
-    private static float CalculateTrainTimeInPowerArea(Train train, uint distance)
+    private double CalculateTrainTimeInPowerArea(double distance)
     {
-        float acceleration = train.Acceleration;
-        return (float)Math.Sqrt(2 * distance / double.Abs(acceleration));
+        return Math.Sqrt(2 * distance / Math.Abs(Acceleration));
     }
 
-    private static long CalculateTrainTime(Train train, uint distance)
+    private double CalculateTrainTime(double distance)
     {
-        uint speed = train.Speed;
+        double speed = Speed;
         return distance / speed;
     }
 
-    private static double CalculatePowerTrainSpeed(Train train)
+    private double CalculatePowerTrainSpeed()
     {
-        double speed = train.Speed;
-        float acceleration = train.Acceleration;
-        uint aim = train.Aim;
+        double speed = Speed;
+        double acceleration = Acceleration;
+        double aim = Aim;
         return speed + (acceleration * aim);
     }
 
-    private static double CalculateNormalTrainSpeed(Train train)
+    private double CalculateNormalTrainSpeed()
     {
-        double speed = train.Speed;
-        uint aim = train.Aim;
+        double speed = Speed;
+        double aim = Aim;
         return speed + (0 * aim);
     }
 
-    private static uint CalculateTrainResultDistance(Train train)
+    private double CalculateTrainResultDistance()
     {
-        uint speed = train.Speed;
-        uint aim = train.Aim;
+        double speed = Speed;
+        double aim = Aim;
         return speed * aim;
     }
 }
