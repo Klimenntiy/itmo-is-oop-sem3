@@ -1,8 +1,8 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 
-public abstract record AreaResult : Result
+public record AreaResult : FinalResult
 {
-    public sealed record MaximumPermissibleSpeed() : Result;
+    public sealed record MaximumPermissibleSpeed() : FinalResult;
 
-    public sealed record TheStationDidNotStopTheTrain() : Result;
+    public sealed record TheStationDidNotStopTheTrain() : FinalResult;
 }

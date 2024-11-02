@@ -1,8 +1,8 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 
-public abstract record TrainResult : Result
+public record TrainResult : FinalResult
 {
-    public sealed record TheTrainCouldntHandleTheAcceleration() : Result;
+    public sealed record TheTrainCouldntHandleTheAcceleration() : FinalResult;
 
-    public sealed record TheTrainHasNoSpeed() : Result;
+    public sealed record TheTrainHasNoSpeed() : FinalResult;
 }

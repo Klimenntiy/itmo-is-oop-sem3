@@ -13,13 +13,13 @@ public class Travel
         _areas = areas;
     }
 
-    public Result Drive(Train train, int maxSpeed)
+    public FinalResult Drive(Train train, int maxSpeed)
     {
         Train currentTrain = train;
         foreach (IArea area in _areas)
         {
-            Result trainResult = area.Move(currentTrain);
-            if (trainResult is not SuccessResult.TravelSuccessResultNormalArea & trainResult is not SuccessResult.TravelSuccessResultStationArea & trainResult is not SuccessResult.TravelSuccessResultPowerArea)
+            FinalResult trainResult = area.Move(currentTrain);
+            if (trainResult is not FinalResult.TravelSuccessResult)
             {
                 return trainResult;
             }
@@ -30,6 +30,6 @@ public class Travel
             return new AreaResult.MaximumPermissibleSpeed();
         }
 
-        return new Result.TravelSuccessResult();
+        return new FinalResult.TravelSuccessResult();
     }
 }

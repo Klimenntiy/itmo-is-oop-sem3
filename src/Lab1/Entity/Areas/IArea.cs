@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entity.Areas;
 
 public interface IArea
 {
-    public Result Move(Train train);
+    public FinalResult Move(Train train);
 }

@@ -1,5 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entity.Model;
 using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.AimValue;
+using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.CreateValueObjects;
 using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.DistanceValue;
 using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.PowerOnValue;
 using static Itmo.ObjectOrientedProgramming.Lab1.ValueObjects.SpeedValue;
@@ -26,49 +27,58 @@ public class Train
 
     public Train(double weightValue, double speedValue, double acceleration, double timeValue, double powerOnValue, double aimValue, double distanceValue)
     {
-        Weight = new Weight(weightValue);
-        Speed = new Speed(speedValue);
+        Weight = CreateWeight(weightValue);
+        Speed = CreateSpeed(speedValue);
         Acceleration = acceleration;
-        Time = new Time(timeValue);
-        PowerOn = new PowerOn(powerOnValue);
-        Aim = new Aim(aimValue);
-        Distance = new Distance(distanceValue);
+        Time = CreateTime(timeValue);
+        PowerOn = CreatePowerOn(powerOnValue);
+        Aim = CreateAim(aimValue);
+        Distance = CreateDistance(distanceValue);
     }
 
-    public Result MoveNormalArea(double distance)
+    public FinalResult MoveNormalArea(double distance)
     {
-        if (Speed <= 0)
-        {
-            return new TrainResult.TheTrainHasNoSpeed();
-        }
-
-        Time = new Time(Time.Value + CalculateTrainTime(distance));
-        double currentDistance = distance;
-        while (currentDistance > 0)
-        {
-            Speed = new Speed(CalculateNormalTrainSpeed());
-            double resultDistance = CalculateTrainResultDistance();
-            currentDistance -= resultDistance;
-            Distance = new Distance(Distance.Value + resultDistance);
-        }
-
-        return new SuccessResult.TravelSuccessResultNormalArea();
+        return Move(distance, 0);
     }
 
-    public Result MovePowerArea(double power, double distance)
+    public FinalResult MovePowerArea(double power, double distance)
     {
         Acceleration = CalculateTrainAcceleration(power);
-        Time = new Time(Time.Value + CalculateTrainTimeInPowerArea(distance));
-
         if (PowerOn < power)
         {
             return new TrainResult.TheTrainCouldntHandleTheAcceleration();
         }
 
+        return Move(distance, power);
+    }
+
+    public FinalResult MoveStationArea(double distance, double stopSpeed, double stopTime)
+    {
+        if (Speed > stopSpeed)
+        {
+            return new AreaResult.TheStationDidNotStopTheTrain();
+        }
+
+        Time = new Time(Time + stopTime);
+        return Move(distance, 0);
+    }
+
+    private FinalResult Move(double distance, double power)
+    {
+        Time = new Time(Time + CalculateTrainTime(distance));
+
         double currentDistance = distance;
         while (currentDistance > 0)
         {
-            Speed = new Speed(CalculatePowerTrainSpeed());
+            if (power > 0)
+            {
+                Speed = new Speed(CalculatePowerTrainSpeed());
+            }
+            else
+            {
+                Speed = new Speed(CalculateNormalTrainSpeed());
+            }
+
             if (Speed <= 0)
             {
                 return new TrainResult.TheTrainHasNoSpeed();
@@ -76,41 +86,16 @@ public class Train
 
             double resultDistance = CalculateTrainResultDistance();
             currentDistance -= resultDistance;
-            Distance = new Distance(Distance.Value + resultDistance);
+            Distance = new Distance(Distance + resultDistance);
         }
 
-        return new SuccessResult.TravelSuccessResultPowerArea();
-    }
-
-    public Result MoveStationArea(double distance, double stopSpeed, double stopTime)
-    {
-        if (Speed > stopSpeed)
-        {
-            return new AreaResult.TheStationDidNotStopTheTrain();
-        }
-
-        Time = new Time(Time.Value + stopTime);
-        double currentDistance = distance;
-        while (currentDistance > 0)
-        {
-            Speed = new Speed(CalculateNormalTrainSpeed());
-            double resultDistance = CalculateTrainResultDistance();
-            currentDistance -= resultDistance;
-            Distance = new Distance(Distance.Value + resultDistance);
-        }
-
-        return new SuccessResult.TravelSuccessResultStationArea();
+        return new FinalResult.TravelSuccessResult();
     }
 
     private double CalculateTrainAcceleration(double power)
     {
         double weight = Weight;
         return power / weight;
-    }
-
-    private double CalculateTrainTimeInPowerArea(double distance)
-    {
-        return Math.Sqrt(2 * distance / Math.Abs(Acceleration));
     }
 
     private double CalculateTrainTime(double distance)

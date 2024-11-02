@@ -16,7 +16,7 @@ public class PowerArea : IArea
 
     private Distance Distance { get; }
 
-    public Result Move(Train train)
+    public FinalResult Move(Train train)
     {
         return train.MovePowerArea(Power, Distance);
     }

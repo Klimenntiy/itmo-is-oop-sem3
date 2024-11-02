@@ -13,7 +13,7 @@ public class NormalArea : IArea
         Distance = new Distance(distanceValue);
     }
 
-    public Result Move(Train train)
+    public FinalResult Move(Train train)
     {
         return train.MoveNormalArea(Distance);
     }
