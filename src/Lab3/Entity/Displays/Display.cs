@@ -1,3 +1,5 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Displays;
 
 public class Display : DisplayDriver

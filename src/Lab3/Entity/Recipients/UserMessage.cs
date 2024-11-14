@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
+using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 

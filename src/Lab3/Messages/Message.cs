@@ -1,6 +1,6 @@
-namespace Itmo.ObjectOrientedProgramming.Lab3.Entity;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
-public class Message
+public class Message : IMessage
 {
     public Message(string header, string body, int priority, int id)
     {

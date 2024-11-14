@@ -5,6 +5,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.Entity.Decorators;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Proxys;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
+using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using NSubstitute;
 using Xunit;
 
@@ -15,7 +16,12 @@ public class UniTests
     [Fact]
     public void MessageIsUnreadWhenReceived()
     {
-        var message = new Message("meow", "this is a test", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var user = new User("german", "meow");
         var addressUser = new AddressUser(user);
         var topic = new Topic("german", addressUser);
@@ -28,7 +34,12 @@ public class UniTests
     [Fact]
     public void MessageDoesNotReachUserWithImportanceFilter()
     {
-        var message = new Message("bruh", "yo", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var user = new User("german", "meow");
         User moqUser = Substitute.For<User>(user);
         var addressUser = new AddressUser(moqUser);
@@ -44,7 +55,12 @@ public class UniTests
     [Fact]
     public void MessageStatusChangesToRead()
     {
-        var message = new Message("bruh", "yo", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var user = new User("german", "meow");
         var addressUser = new AddressUser(user);
         var topic = new Topic("german", addressUser);
@@ -58,7 +74,12 @@ public class UniTests
     [Fact]
     public void CannotMarkAlreadyReadMessageAsRead()
     {
-        var message = new Message("obeme", "yo", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var user = new User("german", "meow");
         var addressUser = new AddressUser(user);
         var topic = new Topic("german", addressUser);
@@ -73,7 +94,12 @@ public class UniTests
     [Fact]
     public void LogIsWrittenWhenMessageArrives()
     {
-        var message = new Message("meow", "yo", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var user = new User("german", "meow");
 
         IAddress mockAddressUser = Substitute.For<IAddress>();
@@ -91,7 +117,12 @@ public class UniTests
     [Fact]
     public void MessengerProducesExpectedValueWhenMessageSent()
     {
-        var message = new Message("meow", "yo", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var messenger = new Messenger("german", "meow");
         Messenger moqMessenger = Substitute.For<Messenger>(messenger);
         var addressMessenger = new AddressMessanger(moqMessenger);
@@ -106,7 +137,12 @@ public class UniTests
     [Fact]
     public void MessageSentWithLowImportanceIsReceivedOnce()
     {
-        var message = new Message("meow", "yo", 1, 0);
+        var messageBuilder = new MessageBuilder();
+        messageBuilder.WithHeader("meow");
+        messageBuilder.WithBody("this is a message");
+        messageBuilder.WithId(0);
+        messageBuilder.WithPriority(1);
+        Message message = messageBuilder.Build();
         var user1 = new User("german", "meow");
         var user2 = new User("ivan", "hello");
 
