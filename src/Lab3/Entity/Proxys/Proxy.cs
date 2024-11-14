@@ -21,8 +21,7 @@ public class Proxy : IAddress
 
         if (message.Priority == _requiredImportance)
         {
-            _address.AcceptMessage(message);
-            return new FinalResult.Success();
+            return _address.AcceptMessage(message);
         }
 
         return new FinalResult.Unimportant();
