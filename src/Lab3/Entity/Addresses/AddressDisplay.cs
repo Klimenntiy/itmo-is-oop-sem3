@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Displays;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 
@@ -17,7 +17,8 @@ public class AddressDisplay : IAddress
     {
         ArgumentNullException.ThrowIfNull(message);
 
-        _display.AcceptMessage(message);
+        Message clonedMessage = message.Clone();
+        _display.AcceptMessage(clonedMessage);
         return new FinalResult.Success();
     }
 }

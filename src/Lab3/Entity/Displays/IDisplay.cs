@@ -1,4 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Displays;
 

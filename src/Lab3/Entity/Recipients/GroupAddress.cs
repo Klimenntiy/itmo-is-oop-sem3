@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 
@@ -27,7 +27,7 @@ public class GroupAddress : IAddress
 
         foreach (IAddress address in _addresses)
         {
-            address.AcceptMessage(message);
+            return address.AcceptMessage(message);
         }
 
         return new FinalResult.Success();

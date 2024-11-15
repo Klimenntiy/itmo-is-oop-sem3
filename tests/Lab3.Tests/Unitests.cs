@@ -2,8 +2,9 @@ using FluentAssertions;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Decorators;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Proxys;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using NSubstitute;
@@ -43,7 +44,8 @@ public class UniTests
         var user = new User("german", "meow");
         User moqUser = Substitute.For<User>(user);
         var addressUser = new AddressUser(moqUser);
-        var proxyAddress = new Proxy(addressUser, 2);
+        var proxyAddress = new Filter(addressUser, 2);
+        Filter.AddFilter(new ImportanceFilter());
         var topic = new Topic("german", proxyAddress);
 
         FinalResult res = topic.SendMessage(message);
@@ -125,7 +127,7 @@ public class UniTests
         Message message = messageBuilder.Build();
         var messenger = new Messenger("german", "meow");
         Messenger moqMessenger = Substitute.For<Messenger>(messenger);
-        var addressMessenger = new AddressMessanger(moqMessenger);
+        var addressMessenger = new AddressMessenger(moqMessenger);
         var topic = new Topic("german", addressMessenger);
 
         FinalResult res = topic.SendMessage(message);
@@ -152,7 +154,8 @@ public class UniTests
         var addressUser1 = new AddressUser(moqUser1);
         var addressUser2 = new AddressUser(moqUser2);
 
-        var proxyAddress1 = new Proxy(addressUser1, 2);
+        var proxyAddress1 = new Filter(addressUser1, 2);
+        Filter.AddFilter(new ImportanceFilter());
         var topic = new Topic("german", proxyAddress1);
         var topic2 = new Topic("german", addressUser2);
 

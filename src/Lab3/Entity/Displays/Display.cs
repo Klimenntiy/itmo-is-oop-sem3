@@ -1,8 +1,8 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Displays;
 
-public class Display : DisplayDriver
+public class Display
 {
     public Display(string name, string title)
     {

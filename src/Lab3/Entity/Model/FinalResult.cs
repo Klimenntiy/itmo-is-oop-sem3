@@ -7,4 +7,6 @@ public abstract record FinalResult
     public sealed record Success : FinalResult;
 
     public sealed record Unimportant : FinalResult;
+
+    public sealed record NoFilters : FinalResult;
 }

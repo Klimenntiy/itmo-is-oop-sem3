@@ -1,5 +1,5 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 
@@ -41,6 +41,6 @@ public class User
         UserMessage? message = UserMessages.ElementAtOrDefault(index);
         ArgumentNullException.ThrowIfNull(message);
         message.MessageRead();
-        return message.MessageRead().Res;
+        return message.MessageRead().Result;
     }
 }

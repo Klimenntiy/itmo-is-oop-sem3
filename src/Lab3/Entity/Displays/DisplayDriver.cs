@@ -1,5 +1,5 @@
 using Crayon;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using System.Drawing;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Displays;

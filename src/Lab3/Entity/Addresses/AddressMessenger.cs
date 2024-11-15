@@ -1,23 +1,24 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 
-public class AddressMessanger : IAddress
+public class AddressMessenger : IAddress
 {
     private readonly Messenger _messenger;
 
-    public AddressMessanger(Messenger messanger)
+    public AddressMessenger(Messenger messenger)
     {
-        _messenger = messanger;
+        _messenger = messenger;
     }
 
     public FinalResult AcceptMessage(Message message)
     {
         ArgumentNullException.ThrowIfNull(message);
 
-        _messenger.AcceptMessage(message);
+        Message clonedMessage = message.Clone();
+        _messenger.AcceptMessage(clonedMessage);
         return new FinalResult.Success();
     }
 }
