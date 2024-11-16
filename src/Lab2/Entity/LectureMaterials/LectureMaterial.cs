@@ -3,7 +3,7 @@ using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
 
-public class LectureMaterial
+public class LectureMaterial : IPrototypeLecMat<LectureMaterial>
 {
     public LectureMaterial(Id id, string name, string description, string content, User creator)
     {
@@ -14,25 +14,23 @@ public class LectureMaterial
         Creator = creator;
     }
 
-    public Id Id { get; }
+    public Id Id { get; private set; }
 
-    public string Name { get; }
+    public string Name { get; private set; }
 
-    public string Description { get; }
+    public string Description { get; private set; }
 
-    public string Content { get; }
+    public string Content { get; private set; }
 
-    public User Creator { get;  }
+    public User Creator { get; private set; }
 
     public LectureMaterial CloneMaterial(LectureMaterial existingMaterial, string newName, string newDescription, string newContent, User newCreator)
     {
-        var newMaterial = new LectureMaterial(
-            existingMaterial.Id,
-            newName,
-            newDescription,
-            newContent,
-            newCreator);
+        existingMaterial.Name = newName;
+        existingMaterial.Description = newDescription;
+        existingMaterial.Content = newContent;
+        existingMaterial.Creator = newCreator;
 
-        return newMaterial;
+        return existingMaterial;
     }
 }

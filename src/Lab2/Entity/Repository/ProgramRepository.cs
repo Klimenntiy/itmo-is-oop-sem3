@@ -12,32 +12,35 @@ public class ProgramRepository : IProgramRepository
         _programs = new Dictionary<Id, Program>();
     }
 
-    public bool Add(Program program)
+    public Program? Add(Program program)
     {
         if (_programs.ContainsKey(program.Id))
         {
-            return false;
+            return null;
         }
 
         _programs[program.Id] = program;
-        return true;
+        return program;
     }
 
-    public void Delete(Id id)
+    public Program? Delete(Id id)
     {
-        if (!_programs.Remove(id))
+        if (_programs.TryGetValue(id, out Program? program))
         {
-            throw new InvalidOperationException($"Program with id {id} does not exist.");
+            _programs.Remove(id);
+            return program;
         }
+
+        return null;
     }
 
-    public Program GetById(Id id)
+    public Program? GetById(Id id)
     {
         if (_programs.TryGetValue(id, out Program? program))
         {
             return program;
         }
 
-        throw new InvalidOperationException($"Program with id {id} does not exist.");
+        return null;
     }
 }

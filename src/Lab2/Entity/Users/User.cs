@@ -2,7 +2,7 @@ using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Users;
 
-public class User : IUser
+public class User
 {
     public User(string name, Id id)
     {

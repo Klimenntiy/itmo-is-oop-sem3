@@ -12,32 +12,35 @@ public class SubjectRepository : ISubjectRepository
         _subjects = new Dictionary<Id, Subject>();
     }
 
-    public bool Add(Subject subject)
+    public Subject? Add(Subject subject)
     {
         if (_subjects.ContainsKey(subject.Id))
         {
-            return false;
+            return null;
         }
 
         _subjects[subject.Id] = subject;
-        return true;
+        return subject;
     }
 
-    public void Delete(Id id)
+    public Subject? Delete(Id id)
     {
-        if (!_subjects.Remove(id))
+        if (_subjects.TryGetValue(id, out Subject? subject))
         {
-            throw new InvalidOperationException($"Subject with id {id} does not exist.");
+            _subjects.Remove(id);
+            return subject;
         }
+
+        return null;
     }
 
-    public Subject GetById(Id id)
+    public Subject? GetById(Id id)
     {
         if (_subjects.TryGetValue(id, out Subject? subject))
         {
             return subject;
         }
 
-        throw new InvalidOperationException($"Subject with id {id} does not exist.");
+        return null;
     }
 }

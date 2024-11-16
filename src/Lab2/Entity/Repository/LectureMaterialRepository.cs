@@ -12,32 +12,35 @@ public class LectureMaterialRepository : ILectureMaterialRepository
         _lectureMaterials = new Dictionary<Id, LectureMaterial>();
     }
 
-    public bool Add(LectureMaterial lectureMaterial)
+    public LectureMaterial? Add(LectureMaterial lectureMaterial)
     {
         if (_lectureMaterials.ContainsKey(lectureMaterial.Id))
         {
-            return false;
+            return null;
         }
 
         _lectureMaterials[lectureMaterial.Id] = lectureMaterial;
-        return true;
+        return lectureMaterial;
     }
 
-    public void Delete(Id id)
+    public LectureMaterial? Delete(Id id)
     {
-        if (!_lectureMaterials.Remove(id))
+        if (_lectureMaterials.TryGetValue(id, out LectureMaterial? lectureMaterial))
         {
-            throw new InvalidOperationException($"LectureMaterial with id {id} does not exist.");
+            _lectureMaterials.Remove(id);
+            return lectureMaterial;
         }
+
+        return null;
     }
 
-    public LectureMaterial GetById(Id id)
+    public LectureMaterial? GetById(Id id)
     {
         if (_lectureMaterials.TryGetValue(id, out LectureMaterial? lectureMaterial))
         {
             return lectureMaterial;
         }
 
-        throw new InvalidOperationException($"LectureMaterial with id {id} does not exist.");
+        return null;
     }
 }

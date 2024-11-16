@@ -5,9 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public interface IProgramRepository
 {
-    bool Add(Program program);
+    Program? Add(Program program);
 
-    void Delete(Id id);
+    Program? Delete(Id id);
 
-    Program GetById(Id id);
+    Program? GetById(Id id);
 }

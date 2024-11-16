@@ -4,7 +4,7 @@ using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectNumberOf
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
 
-public class LaboratoryWork
+public class LaboratoryWork : IPrototypeLabWork<LaboratoryWork>
 {
     public LaboratoryWork(Id id, string name, string description, string evaluationCriteria, NumberOfPoints numberOfPoints, User creator)
     {
@@ -20,13 +20,13 @@ public class LaboratoryWork
 
     public string Name { get; }
 
-    public string Description { get;  }
+    public string Description { get; }
 
     public string EvaluationCriteria { get; }
 
-    public NumberOfPoints NumberOfPoints { get;  }
+    public NumberOfPoints NumberOfPoints { get; }
 
-    public User Creator { get;  }
+    public User Creator { get; }
 
     public LaboratoryWork CloneWork(
         LaboratoryWork existingWork,

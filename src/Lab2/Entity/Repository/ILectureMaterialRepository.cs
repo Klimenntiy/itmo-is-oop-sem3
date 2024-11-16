@@ -5,9 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public interface ILectureMaterialRepository
 {
-    bool Add(LectureMaterial lectureMaterial);
+    LectureMaterial? Add(LectureMaterial lectureMaterial);
 
-    void Delete(Id id);
+    LectureMaterial? Delete(Id id);
 
-    LectureMaterial GetById(Id id);
+    LectureMaterial? GetById(Id id);
 }

@@ -12,32 +12,35 @@ public class LaboratoryWorkRepository : ILaboratoryWorkRepository
         _laboratoryWorks = new Dictionary<Id, LaboratoryWork>();
     }
 
-    public bool Add(LaboratoryWork laboratoryWork)
+    public LaboratoryWork? Add(LaboratoryWork laboratoryWork)
     {
         if (_laboratoryWorks.ContainsKey(laboratoryWork.Id))
         {
-            return false;
+            return null;
         }
 
         _laboratoryWorks[laboratoryWork.Id] = laboratoryWork;
-        return true;
+        return laboratoryWork;
     }
 
-    public void Delete(Id id)
+    public LaboratoryWork? Delete(Id id)
     {
-        if (!_laboratoryWorks.Remove(id))
+        if (_laboratoryWorks.TryGetValue(id, out LaboratoryWork? laboratoryWork))
         {
-            throw new InvalidOperationException($"LaboratoryWork with id {id} does not exist.");
+            _laboratoryWorks.Remove(id);
+            return laboratoryWork;
         }
+
+        return null;
     }
 
-    public LaboratoryWork GetById(Id id)
+    public LaboratoryWork? GetById(Id id)
     {
         if (_laboratoryWorks.TryGetValue(id, out LaboratoryWork? laboratoryWork))
         {
             return laboratoryWork;
         }
 
-        throw new InvalidOperationException($"LaboratoryWork with id {id} does not exist.");
+        return null;
     }
 }
