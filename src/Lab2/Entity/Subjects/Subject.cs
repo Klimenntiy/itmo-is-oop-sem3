@@ -33,7 +33,24 @@ public class Subject
 
     public string Points { get; }
 
-    public static Subject CloneSubject(Subject existingSubject, string newName, IReadOnlyCollection<LectureMaterial> newLectureMaterials, IReadOnlyCollection<LaboratoryWork> newLabWorks, User newCreator, string newTypeOfCredit, string newPoints)
+    public static FinalResult CheckOfScore(IReadOnlyCollection<LaboratoryWork> laboratoryWorks)
+    {
+        double totalScore = 0;
+
+        foreach (LaboratoryWork work in laboratoryWorks)
+        {
+            totalScore += work.NumberOfPoints;
+        }
+
+        if (totalScore != 100)
+        {
+            return new FinalResult.SubjectScoresDoNotEqualAHundred();
+        }
+
+        return new FinalResult.Success();
+    }
+
+    public Subject CloneSubject(Subject existingSubject, string newName, IReadOnlyCollection<LectureMaterial> newLectureMaterials, IReadOnlyCollection<LaboratoryWork> newLabWorks, User newCreator, string newTypeOfCredit, string newPoints)
     {
         var newSubject = new Subject(
             newName,
@@ -45,18 +62,5 @@ public class Subject
             newCreator);
 
         return newSubject;
-    }
-
-    public static FinalResult CheckOfScore(IReadOnlyCollection<LaboratoryWork> laboratoryWorks)
-    {
-        foreach (LaboratoryWork work in laboratoryWorks)
-        {
-            if (work.NumberOfPoints != 100)
-            {
-                return new FinalResult.SubjectScoresDoNotEqualAHundred();
-            }
-        }
-
-        return new FinalResult.Success();
     }
 }

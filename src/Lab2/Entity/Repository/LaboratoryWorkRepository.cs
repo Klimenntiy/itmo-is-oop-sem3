@@ -12,11 +12,15 @@ public class LaboratoryWorkRepository : ILaboratoryWorkRepository
         _laboratoryWorks = new Dictionary<Id, LaboratoryWork>();
     }
 
-    public void Add(LaboratoryWork laboratoryWork)
+    public bool Add(LaboratoryWork laboratoryWork)
     {
         if (_laboratoryWorks.ContainsKey(laboratoryWork.Id))
-            throw new InvalidOperationException($"LaboratoryWork with id {laboratoryWork.Id} already exists.");
+        {
+            return false;
+        }
+
         _laboratoryWorks[laboratoryWork.Id] = laboratoryWork;
+        return true;
     }
 
     public void Delete(Id id)

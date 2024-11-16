@@ -12,11 +12,15 @@ public class SubjectRepository : ISubjectRepository
         _subjects = new Dictionary<Id, Subject>();
     }
 
-    public void Add(Subject subject)
+    public bool Add(Subject subject)
     {
         if (_subjects.ContainsKey(subject.Id))
-            throw new InvalidOperationException($"Subject with id {subject.Id} already exists.");
+        {
+            return false;
+        }
+
         _subjects[subject.Id] = subject;
+        return true;
     }
 
     public void Delete(Id id)

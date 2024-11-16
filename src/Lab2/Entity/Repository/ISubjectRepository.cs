@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public interface ISubjectRepository
 {
-    void Add(Subject subject);
+    bool Add(Subject subject);
 
     void Delete(Id id);
 

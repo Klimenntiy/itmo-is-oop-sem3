@@ -24,7 +24,7 @@ public class LectureMaterial
 
     public User Creator { get;  }
 
-    public static LectureMaterial CloneMaterial(LectureMaterial existingMaterial, string newName, string newDescription, string newContent, User newCreator)
+    public LectureMaterial CloneMaterial(LectureMaterial existingMaterial, string newName, string newDescription, string newContent, User newCreator)
     {
         var newMaterial = new LectureMaterial(
             existingMaterial.Id,

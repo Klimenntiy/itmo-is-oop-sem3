@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public interface ILaboratoryWorkRepository
 {
-    void Add(LaboratoryWork laboratoryWork);
+    bool Add(LaboratoryWork laboratoryWork);
 
     void Delete(Id id);
 

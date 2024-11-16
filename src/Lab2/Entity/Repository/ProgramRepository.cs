@@ -12,11 +12,15 @@ public class ProgramRepository : IProgramRepository
         _programs = new Dictionary<Id, Program>();
     }
 
-    public void Add(Program program)
+    public bool Add(Program program)
     {
         if (_programs.ContainsKey(program.Id))
-            throw new InvalidOperationException($"Program with id {program.Id} already exists.");
+        {
+            return false;
+        }
+
         _programs[program.Id] = program;
+        return true;
     }
 
     public void Delete(Id id)

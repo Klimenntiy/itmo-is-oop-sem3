@@ -12,11 +12,15 @@ public class LectureMaterialRepository : ILectureMaterialRepository
         _lectureMaterials = new Dictionary<Id, LectureMaterial>();
     }
 
-    public void Add(LectureMaterial lectureMaterial)
+    public bool Add(LectureMaterial lectureMaterial)
     {
         if (_lectureMaterials.ContainsKey(lectureMaterial.Id))
-            throw new InvalidOperationException($"LectureMaterial with id {lectureMaterial.Id} already exists.");
+        {
+            return false;
+        }
+
         _lectureMaterials[lectureMaterial.Id] = lectureMaterial;
+        return true;
     }
 
     public void Delete(Id id)

@@ -25,15 +25,9 @@ public class UniTests2
 
         var semestr = new ValueObjectSemestr.Semestr(1);
 
-        var builderUser1 = new UserBuilder();
-        builderUser1.AddId(id1);
-        builderUser1.AddName("Genna");
-        User user1 = builderUser1.BuildUser();
+        var user1 = new User("Genna", id1);
 
-        var builderUser2 = new UserBuilder();
-        builderUser2.AddId(id0);
-        builderUser2.AddName("Shredar");
-        User user2 = builderUser1.BuildUser();
+        var user2 = new User("Shreder", id0);
 
         var builderLabWork1 = new LaboratoryWorkBuilder();
         builderLabWork1.AddId(id2);
@@ -110,15 +104,9 @@ public class UniTests2
 
         var semestr = new ValueObjectSemestr.Semestr(1);
 
-        var builderUser1 = new UserBuilder();
-        builderUser1.AddId(id1);
-        builderUser1.AddName("Genna");
-        User user1 = builderUser1.BuildUser();
+        var user1 = new User("Genna", id1);
 
-        var builderUser2 = new UserBuilder();
-        builderUser2.AddId(id0);
-        builderUser2.AddName("Shredar");
-        User user2 = builderUser1.BuildUser();
+        var user2 = new User("Shreder", id0);
 
         var builderLabWork1 = new LaboratoryWorkBuilder();
         builderLabWork1.AddId(id2);
@@ -163,13 +151,13 @@ public class UniTests2
         builderProgram1.AddId(id5);
         Program program1 = builderProgram1.Build();
 
-        var cloneSub = Subject.CloneSubject(subject1, "dis math", lecMaterials, laboratoryWorks, user1, "Zachet", "60+ - zachet");
+        Subject cloneSub = subject1.CloneSubject(subject1, "dis math", lecMaterials, laboratoryWorks, user1, "Zachet", "60+ - zachet");
         Assert.True(subject1.Id == cloneSub.Id);
 
-        var cloneLab = LaboratoryWork.CloneWork(laboratoryWork1, "Dis Math lab", user1, "not fart", "be cool", points1);
+        LaboratoryWork cloneLab = laboratoryWork1.CloneWork(laboratoryWork1, "Dis Math lab", user1, "not fart", "be cool", points1);
         Assert.True(laboratoryWork1.Id == cloneLab.Id);
 
-        var cloneLec = LectureMaterial.CloneMaterial(lecMaterial1, "dis math lec", "not fart", "easy", user1);
+        LectureMaterial cloneLec = lecMaterial1.CloneMaterial(lecMaterial1, "dis math lec", "not fart", "easy", user1);
         Assert.True(lecMaterial1.Id == cloneLec.Id);
     }
 
@@ -187,15 +175,9 @@ public class UniTests2
 
         var semestr = new ValueObjectSemestr.Semestr(1);
 
-        var builderUser1 = new UserBuilder();
-        builderUser1.AddId(id1);
-        builderUser1.AddName("Genna");
-        User user1 = builderUser1.BuildUser();
+        var user1 = new User("Genna", id1);
 
-        var builderUser2 = new UserBuilder();
-        builderUser2.AddId(id0);
-        builderUser2.AddName("Shredar");
-        User user2 = builderUser1.BuildUser();
+        var user2 = new User("Shreder", id0);
 
         var builderLabWork1 = new LaboratoryWorkBuilder();
         builderLabWork1.AddId(id2);

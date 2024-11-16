@@ -28,7 +28,13 @@ public class LaboratoryWork
 
     public User Creator { get;  }
 
-    public static LaboratoryWork CloneWork(LaboratoryWork existingWork, string newName, User newCreator, string newDescription, string newEvaluationCriteria, NumberOfPoints newNumberOfPoints)
+    public LaboratoryWork CloneWork(
+        LaboratoryWork existingWork,
+        string newName,
+        User newCreator,
+        string newDescription,
+        string newEvaluationCriteria,
+        NumberOfPoints newNumberOfPoints)
     {
         var newWork = new LaboratoryWork(
             existingWork.Id,
@@ -37,6 +43,7 @@ public class LaboratoryWork
             newEvaluationCriteria,
             newNumberOfPoints,
             newCreator);
+
         return newWork;
     }
 }
