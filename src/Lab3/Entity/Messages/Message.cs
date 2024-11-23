@@ -1,5 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
-
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 
 public class Message : IMessage
@@ -20,7 +18,7 @@ public class Message : IMessage
 
     public string Body { get; }
 
-    public Message Clone()
+    public IMessage Clone()
     {
         return new Message(Header, Body, Priority, Id);
     }

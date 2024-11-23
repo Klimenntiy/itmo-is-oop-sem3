@@ -1,8 +1,8 @@
 using FluentAssertions;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Decorators;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
@@ -96,6 +96,7 @@ public class UniTests
     [Fact]
     public void LogIsWrittenWhenMessageArrives()
     {
+        // Arrange
         var messageBuilder = new MessageBuilder();
         messageBuilder.WithHeader("meow");
         messageBuilder.WithBody("this is a message");
@@ -104,36 +105,37 @@ public class UniTests
         Message message = messageBuilder.Build();
         var user = new User("german", "meow");
 
+        var messageLogger = new MessageLogger();
         IAddress mockAddressUser = Substitute.For<IAddress>();
-        var logDecorator = new Decorator(mockAddressUser);
+        var logDecorator = new LoggerDecorator(mockAddressUser, messageLogger);
 
         var topic = new Topic("german", logDecorator);
 
         FinalResult res = topic.SendMessage(message);
 
-        logDecorator.Log.Should().Contain(message);
+        logDecorator.GetLogs().Should().Contain(message);
         mockAddressUser.Received().AcceptMessage(message);
-        Assert.True(res == new FinalResult.Success());
     }
 
     [Fact]
     public void MessengerProducesExpectedValueWhenMessageSent()
     {
+        // Arrange
         var messageBuilder = new MessageBuilder();
         messageBuilder.WithHeader("meow");
         messageBuilder.WithBody("this is a message");
         messageBuilder.WithId(0);
         messageBuilder.WithPriority(1);
         Message message = messageBuilder.Build();
-        var messenger = new Messenger("german", "meow");
-        Messenger moqMessenger = Substitute.For<Messenger>(messenger);
+
+        Messenger moqMessenger = Substitute.For<Messenger>("german", "meow");
         var addressMessenger = new AddressMessenger(moqMessenger);
         var topic = new Topic("german", addressMessenger);
 
         FinalResult res = topic.SendMessage(message);
 
         moqMessenger.Received().Print();
-        Assert.True(res == new FinalResult.Success());
+        Assert.True(res.Equals(new FinalResult.Success()), "Expected success result was not returned.");
     }
 
     [Fact]

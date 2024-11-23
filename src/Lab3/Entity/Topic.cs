@@ -8,8 +8,8 @@ public class Topic
 {
     public Topic(string name, IAddress address)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name), "Name cant be null.");
-        Address = address ?? throw new ArgumentNullException(nameof(address), "Address cant be null.");
+        Name = name ?? throw new ArgumentNullException(nameof(name), "Name can't be null.");
+        Address = address ?? throw new ArgumentNullException(nameof(address), "Address can't be null.");
     }
 
     public string Name { get; protected set; }

@@ -16,14 +16,15 @@ public class Messenger
         Title = messenger.Title;
     }
 
-    private Message? CurrentMessage { get; set; }
+    public IMessage? CurrentMessage { get; private set; }
 
     private string Name { get; }
 
     private string Title { get; }
 
-    public void AcceptMessage(Message message)
+    public void AcceptMessage(IMessage message)
     {
+        ArgumentNullException.ThrowIfNull(message, nameof(message));
         CurrentMessage = message;
     }
 

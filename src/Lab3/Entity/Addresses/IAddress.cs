@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 
 public interface IAddress
 {
-    public FinalResult AcceptMessage(Message message);
+    public FinalResult AcceptMessage(IMessage message);
 }

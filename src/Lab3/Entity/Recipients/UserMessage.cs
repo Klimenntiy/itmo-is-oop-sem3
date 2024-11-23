@@ -5,13 +5,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 
 public class UserMessage
 {
-    public UserMessage(Message message, bool isRead)
+    public UserMessage(IMessage message, bool isRead)
     {
-        Message = message ?? throw new ArgumentNullException(nameof(message), "Message cant be null.");
+        Message = message;
         IsRead = isRead;
     }
 
-    public Message Message { get; }
+    public IMessage Message { get; }
 
     public bool IsRead { get; private set; }
 

@@ -10,14 +10,15 @@ public class Display
         Title = title ?? throw new ArgumentNullException(nameof(title));
     }
 
-    public Message? CurrentMessage { get; private set; }
+    public IMessage? CurrentMessage { get; private set; }
 
     public string Name { get; private set; }
 
     public string Title { get; private set; }
 
-    public void AcceptMessage(Message? message)
+    public void AcceptMessage(IMessage message)
     {
+        ArgumentNullException.ThrowIfNull(message, nameof(message));
         CurrentMessage = message;
     }
 }

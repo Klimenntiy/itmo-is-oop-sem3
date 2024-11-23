@@ -13,11 +13,11 @@ public class AddressDisplay : IAddress
         _display = display;
     }
 
-    public FinalResult AcceptMessage(Message message)
+    public FinalResult AcceptMessage(IMessage message)
     {
         ArgumentNullException.ThrowIfNull(message);
 
-        Message clonedMessage = message.Clone();
+        IMessage clonedMessage = message.Clone();
         _display.AcceptMessage(clonedMessage);
         return new FinalResult.Success();
     }

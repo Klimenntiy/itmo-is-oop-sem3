@@ -30,7 +30,7 @@ public class User
         return message.IsRead;
     }
 
-    public void AcceptMessage(Message message)
+    public void AcceptMessage(IMessage message)
     {
         var userMessage = new UserMessage(message, false);
         UserMessages.Add(userMessage);

@@ -13,7 +13,7 @@ public class AddressUser : IAddress
         _user = user ?? throw new ArgumentNullException(nameof(user));
     }
 
-    public FinalResult AcceptMessage(Message message)
+    public FinalResult AcceptMessage(IMessage message)
     {
         ArgumentNullException.ThrowIfNull(message);
 

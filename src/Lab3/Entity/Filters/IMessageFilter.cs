@@ -6,5 +6,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
 
 public interface IMessageFilter
 {
-    public FinalResult Filter(Message message, IAddress address, int importance);
+    public FinalResult Filter(IMessage message, IAddress address, int importance);
 }

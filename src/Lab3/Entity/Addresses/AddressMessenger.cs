@@ -10,14 +10,14 @@ public class AddressMessenger : IAddress
 
     public AddressMessenger(Messenger messenger)
     {
-        _messenger = messenger;
+        _messenger = messenger ?? throw new ArgumentNullException(nameof(messenger), "Messenger can't be null.");
     }
 
-    public FinalResult AcceptMessage(Message message)
+    public FinalResult AcceptMessage(IMessage message)
     {
-        ArgumentNullException.ThrowIfNull(message);
+        ArgumentNullException.ThrowIfNull(message, nameof(message));
 
-        Message clonedMessage = message.Clone();
+        IMessage clonedMessage = message.Clone();
         _messenger.AcceptMessage(clonedMessage);
         return new FinalResult.Success();
     }

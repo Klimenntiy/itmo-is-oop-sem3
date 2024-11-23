@@ -18,7 +18,7 @@ public class GroupAddress : IAddress
         _addresses.Add(address);
     }
 
-    public FinalResult AcceptMessage(Message message)
+    public FinalResult AcceptMessage(IMessage message)
     {
         if (message == null)
         {

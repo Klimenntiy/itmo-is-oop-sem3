@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
 
 public class ImportanceFilter : IMessageFilter
 {
-    public FinalResult Filter(Message message, IAddress address, int importance)
+    public FinalResult Filter(IMessage message, IAddress address, int importance)
     {
         if (message.Priority == importance)
         {

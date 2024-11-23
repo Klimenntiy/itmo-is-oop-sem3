@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab3.Messages;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 
 public interface IMessage
 {
@@ -9,4 +9,6 @@ public interface IMessage
     public string Header { get; }
 
     public string Body { get; }
+
+    public IMessage Clone();
 }
