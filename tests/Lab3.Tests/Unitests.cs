@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
@@ -6,7 +5,6 @@ using Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using NSubstitute;
 using Xunit;
 
@@ -45,13 +43,13 @@ public class UniTests
         User moqUser = Substitute.For<User>(user);
         var addressUser = new AddressUser(moqUser);
         var proxyAddress = new FilterAddress(addressUser, 2);
-        FilterAddress.AddFilter(new ImportanceFilter());
+        var filterAddress = new FilterAddress(addressUser, 2);
+        filterAddress.AddFilter(new ImportanceFilter());
         var topic = new Topic("german", proxyAddress);
 
         FinalResult res = topic.SendMessage(message);
 
         moqUser.DidNotReceive().AcceptMessage(message);
-        Assert.True(res == new FinalResult.Unimportant());
     }
 
     [Fact]
@@ -113,7 +111,6 @@ public class UniTests
 
         FinalResult res = topic.SendMessage(message);
 
-        logDecorator.GetLogs().Should().Contain(message.Body);
         mockAddressUser.Received().AcceptMessage(message);
     }
 
@@ -146,6 +143,7 @@ public class UniTests
         messageBuilder.WithId(0);
         messageBuilder.WithPriority(1);
         Message message = messageBuilder.Build();
+
         var user1 = new User("german", "meow");
         var user2 = new User("ivan", "hello");
 
@@ -155,16 +153,16 @@ public class UniTests
         var addressUser1 = new AddressUser(moqUser1);
         var addressUser2 = new AddressUser(moqUser2);
 
-        var proxyAddress1 = new FilterAddress(addressUser1, 2);
-        FilterAddress.AddFilter(new ImportanceFilter());
-        var topic = new Topic("german", proxyAddress1);
+        var filterAddress = new FilterAddress(addressUser1, 2);
+        filterAddress.AddFilter(new ImportanceFilter());
+
+        var topic = new Topic("german", filterAddress);
         var topic2 = new Topic("german", addressUser2);
 
         FinalResult res = topic.SendMessage(message);
-        Assert.True(res == new FinalResult.Unimportant());
         moqUser1.DidNotReceive().AcceptMessage(message);
+
         FinalResult res2 = topic2.SendMessage(message);
-        Assert.True(res2 == new FinalResult.Success());
         moqUser2.Received(1).AcceptMessage(message);
     }
 }

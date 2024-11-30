@@ -4,16 +4,20 @@ using System.Drawing;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Displays;
 
-public class DisplayDriver : IDisplay
+public class DisplayDriver : Display
 {
     private Color _color = Color.Empty;
+
+    public DisplayDriver(string name, string title, string currentMessage) : base(name, title, currentMessage)
+    {
+    }
 
     public void SetColor(Color color)
     {
         _color = color;
     }
 
-    public void Show(Message? message)
+    public void Show(Message message)
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
 

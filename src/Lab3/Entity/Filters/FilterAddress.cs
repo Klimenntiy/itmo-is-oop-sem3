@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
 
 public class FilterAddress : IAddress
 {
-    private static readonly List<IMessageFilter> Filters = new List<IMessageFilter>();
+    private readonly IEnumerable<IMessageFilter> _filters = new List<IMessageFilter>();
     private readonly IAddress _address;
     private readonly int _importanceThreshold;
 
@@ -16,19 +16,19 @@ public class FilterAddress : IAddress
         _importanceThreshold = importance;
     }
 
-    public static void AddFilter(IMessageFilter filter)
+    public void AddFilter(IMessageFilter filter)
     {
         if (filter == null) throw new ArgumentNullException(nameof(filter), "Filter cannot be null.");
-        Filters.Add(filter);
+        _filters.Append(filter);
     }
 
     public FinalResult AcceptMessage(IMessage message)
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
 
-        if (Filters.Count > 0)
+        if (_filters.Any())
         {
-            foreach (IMessageFilter filter in Filters)
+            foreach (IMessageFilter filter in _filters)
             {
                 FinalResult result = filter.Filter(message, _address, _importanceThreshold);
                 if (result is not FinalResult.Success)

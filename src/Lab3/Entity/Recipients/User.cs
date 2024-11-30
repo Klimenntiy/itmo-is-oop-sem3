@@ -41,6 +41,6 @@ public class User
         UserMessage? message = UserMessages.ElementAtOrDefault(index);
         ArgumentNullException.ThrowIfNull(message);
         message.MessageRead();
-        return message.MessageRead().Result;
+        return message.MessageRead().Res;
     }
 }

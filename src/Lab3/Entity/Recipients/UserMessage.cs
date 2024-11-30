@@ -15,14 +15,14 @@ public class UserMessage
 
     public bool IsRead { get; private set; }
 
-    public (FinalResult Result, bool Importance) MessageRead()
+    public ModifyResult MessageRead()
     {
         if (IsRead)
         {
-            return (new FinalResult.TheMessageHasAlreadyBeenRead(), true);
+            return new ModifyResult(new FinalResult.TheMessageHasAlreadyBeenRead(), true);
         }
 
         IsRead = true;
-        return (new FinalResult.Success(), IsRead);
+        return new ModifyResult(new FinalResult.Success(), IsRead);
     }
 }

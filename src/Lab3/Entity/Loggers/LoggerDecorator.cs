@@ -1,7 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
-using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 
@@ -23,15 +22,5 @@ public class LoggerDecorator : IAddress
         _logger.LogMessage(message.Body);
 
         return _address.AcceptMessage(message);
-    }
-
-    public ReadOnlyCollection<string> GetLogs()
-    {
-        if (_logger is MessageLogger logger)
-        {
-            return logger.GetLogs();
-        }
-
-        throw new InvalidOperationException("Logger is not a MessageLogger.");
     }
 }
