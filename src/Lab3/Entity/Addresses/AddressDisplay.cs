@@ -17,8 +17,9 @@ public class AddressDisplay : IAddress
     {
         ArgumentNullException.ThrowIfNull(message);
 
-        IMessage clonedMessage = message.Clone();
-        _display.AcceptMessage(clonedMessage);
+        string messageText = message.Body;
+
+        _display.AcceptMessage(messageText);
         return new FinalResult.Success();
     }
 }

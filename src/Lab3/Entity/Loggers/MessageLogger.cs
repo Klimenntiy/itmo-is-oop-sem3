@@ -1,24 +1,23 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
 using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 
 public class MessageLogger : ILogger
 {
-    private readonly List<IMessage> log;
+    private readonly List<string> log;
 
     public MessageLogger()
     {
-        log = new List<IMessage>();
+        log = new List<string>();
     }
 
-    public void LogMessage(IMessage message)
+    public void LogMessage(string message)
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
         log.Add(message);
     }
 
-    public ReadOnlyCollection<IMessage> GetLogs()
+    public ReadOnlyCollection<string> GetLogs()
     {
         return log.AsReadOnly();
     }

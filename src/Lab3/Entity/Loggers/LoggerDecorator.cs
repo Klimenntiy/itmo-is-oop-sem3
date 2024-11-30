@@ -20,13 +20,18 @@ public class LoggerDecorator : IAddress
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
 
-        _logger.LogMessage(message);
+        _logger.LogMessage(message.Body);
 
         return _address.AcceptMessage(message);
     }
 
-    public ReadOnlyCollection<IMessage> GetLogs()
+    public ReadOnlyCollection<string> GetLogs()
     {
-        return (_logger as MessageLogger)?.GetLogs() ?? new ReadOnlyCollection<IMessage>(new List<IMessage>());
+        if (_logger is MessageLogger logger)
+        {
+            return logger.GetLogs();
+        }
+
+        throw new InvalidOperationException("Logger is not a MessageLogger.");
     }
 }

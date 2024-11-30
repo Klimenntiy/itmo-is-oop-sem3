@@ -1,11 +1,14 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
-
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 
 public class ConsoleLogger : ILogger
 {
-    public void LogMessage(IMessage message)
+    public void LogMessage(string message)
     {
-        Console.WriteLine($"Message logged: {message.Body}");
+        if (string.IsNullOrEmpty(message))
+        {
+            throw new ArgumentException("Message cannot be null or empty.", nameof(message));
+        }
+
+        Console.WriteLine($"Message logged: {message}");
     }
 }

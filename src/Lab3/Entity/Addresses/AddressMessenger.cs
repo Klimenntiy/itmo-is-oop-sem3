@@ -18,7 +18,7 @@ public class AddressMessenger : IAddress
         ArgumentNullException.ThrowIfNull(message, nameof(message));
 
         IMessage clonedMessage = message.Clone();
-        _messenger.AcceptMessage(clonedMessage);
+        _messenger.Print(clonedMessage.Body);
         return new FinalResult.Success();
     }
 }

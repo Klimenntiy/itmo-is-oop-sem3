@@ -1,42 +1,20 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
-
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 
 public class Messenger
 {
     public Messenger(string name, string title)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name), "Имя не может быть null.");
-        Title = title ?? throw new ArgumentNullException(nameof(title), "Заголовок не может быть null.");
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Title = title ?? throw new ArgumentNullException(nameof(title));
     }
 
-    public Messenger(Messenger messenger)
-    {
-        Name = messenger.Name;
-        Title = messenger.Title;
-    }
+    public string Name { get; }
 
-    public IMessage? CurrentMessage { get; private set; }
+    public string Title { get; }
 
-    private string Name { get; }
-
-    private string Title { get; }
-
-    public void AcceptMessage(IMessage message)
+    public void Print(string message)
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
-        CurrentMessage = message;
-    }
-
-    public void Print()
-    {
-        if (CurrentMessage != null)
-        {
-            Console.WriteLine(CurrentMessage);
-        }
-        else
-        {
-            Console.WriteLine("No message to show");
-        }
+        Console.WriteLine($"{Name} ({Title}): {message}");
     }
 }

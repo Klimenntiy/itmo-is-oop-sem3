@@ -44,8 +44,8 @@ public class UniTests
         var user = new User("german", "meow");
         User moqUser = Substitute.For<User>(user);
         var addressUser = new AddressUser(moqUser);
-        var proxyAddress = new Filter(addressUser, 2);
-        Filter.AddFilter(new ImportanceFilter());
+        var proxyAddress = new FilterAddress(addressUser, 2);
+        FilterAddress.AddFilter(new ImportanceFilter());
         var topic = new Topic("german", proxyAddress);
 
         FinalResult res = topic.SendMessage(message);
@@ -113,14 +113,13 @@ public class UniTests
 
         FinalResult res = topic.SendMessage(message);
 
-        logDecorator.GetLogs().Should().Contain(message);
+        logDecorator.GetLogs().Should().Contain(message.Body);
         mockAddressUser.Received().AcceptMessage(message);
     }
 
     [Fact]
     public void MessengerProducesExpectedValueWhenMessageSent()
     {
-        // Arrange
         var messageBuilder = new MessageBuilder();
         messageBuilder.WithHeader("meow");
         messageBuilder.WithBody("this is a message");
@@ -134,7 +133,7 @@ public class UniTests
 
         FinalResult res = topic.SendMessage(message);
 
-        moqMessenger.Received().Print();
+        moqMessenger.Received().Print(message.Body);
         Assert.True(res.Equals(new FinalResult.Success()), "Expected success result was not returned.");
     }
 
@@ -156,8 +155,8 @@ public class UniTests
         var addressUser1 = new AddressUser(moqUser1);
         var addressUser2 = new AddressUser(moqUser2);
 
-        var proxyAddress1 = new Filter(addressUser1, 2);
-        Filter.AddFilter(new ImportanceFilter());
+        var proxyAddress1 = new FilterAddress(addressUser1, 2);
+        FilterAddress.AddFilter(new ImportanceFilter());
         var topic = new Topic("german", proxyAddress1);
         var topic2 = new Topic("german", addressUser2);
 

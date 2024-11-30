@@ -1,8 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
-
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 
 public interface ILogger
 {
-    void LogMessage(IMessage message);
+    void LogMessage(string message);
 }
