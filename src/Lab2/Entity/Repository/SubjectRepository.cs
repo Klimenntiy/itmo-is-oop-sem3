@@ -1,46 +1,42 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Subjects;
-using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
+using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public class SubjectRepository : ISubjectRepository
 {
-    private readonly Dictionary<Id, Subject> _subjects;
+    private readonly List<Subject> _subjects;
 
     public SubjectRepository()
     {
-        _subjects = new Dictionary<Id, Subject>();
+        _subjects = new List<Subject>();
     }
 
     public Subject? Add(Subject subject)
     {
-        if (_subjects.ContainsKey(subject.Id))
+        if (_subjects.Any(s => s.Id.Equals(subject.Id)))
         {
             return null;
         }
 
-        _subjects[subject.Id] = subject;
+        _subjects.Add(subject);
         return subject;
     }
 
-    public Subject? Delete(Id id)
+    public Subject? Delete(ValueObjectId id)
     {
-        if (_subjects.TryGetValue(id, out Subject? subject))
+        Subject? subjectToRemove = _subjects.FirstOrDefault(s => s.Id.Equals(id));
+        if (subjectToRemove != null)
         {
-            _subjects.Remove(id);
-            return subject;
+            _subjects.Remove(subjectToRemove);
+            return subjectToRemove;
         }
 
         return null;
     }
 
-    public Subject? GetById(Id id)
+    public Subject? GetById(ValueObjectId id)
     {
-        if (_subjects.TryGetValue(id, out Subject? subject))
-        {
-            return subject;
-        }
-
-        return null;
+        return _subjects.FirstOrDefault(s => s.Id.Equals(id));
     }
 }

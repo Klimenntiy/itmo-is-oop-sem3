@@ -9,7 +9,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Subjects;
 
 public class Subject : IPrototypeSubject<Subject>
 {
-    public Subject(string name, Id id, IReadOnlyCollection<LaboratoryWork> labWorks, IReadOnlyCollection<LectureMaterial> lecMaterials, EnumToCredit typeOfCredit, EnumToExam points, User creator)
+    public Subject(string name, Id id, IReadOnlyCollection<LaboratoryWork> labWorks, IReadOnlyCollection<LectureMaterial> lecMaterials, SubjectFormat typeOfCredit, InfoPoints points, User creator)
     {
         Name = name;
         Id = id;
@@ -30,9 +30,9 @@ public class Subject : IPrototypeSubject<Subject>
 
     public User Creator { get; private set; }
 
-    public EnumToCredit TypeOfCredit { get; private set; }
+    public SubjectFormat TypeOfCredit { get; private set; }
 
-    public EnumToExam Points { get; private set; }
+    public InfoPoints Points { get; private set; }
 
     public static FinalResult CheckOfScore(IReadOnlyCollection<LaboratoryWork> laboratoryWorks)
     {
@@ -57,8 +57,8 @@ public class Subject : IPrototypeSubject<Subject>
         IReadOnlyCollection<LectureMaterial> newLectureMaterials,
         IReadOnlyCollection<LaboratoryWork> newLabWorks,
         User newCreator,
-        EnumToCredit newTypeOfCredit,
-        EnumToExam newPoints)
+        SubjectFormat newTypeOfCredit,
+        InfoPoints newPoints)
     {
         SubjectBuilder builder = new SubjectBuilder()
             .AddId(existingSubject.Id)

@@ -14,8 +14,8 @@ public class SubjectBuilder
     private IReadOnlyCollection<LaboratoryWork>? _labWorks;
     private IReadOnlyCollection<LectureMaterial>? _lecMaterials;
     private User? _creator;
-    private EnumToCredit _typeOfCredit;
-    private EnumToExam _points;
+    private SubjectFormat? _typeOfCredit;
+    private InfoPoints? _points;
 
     public SubjectBuilder AddName(string name)
     {
@@ -47,13 +47,13 @@ public class SubjectBuilder
         return this;
     }
 
-    public SubjectBuilder AddTypeOfCredit(EnumToCredit typeOfCredit)
+    public SubjectBuilder AddTypeOfCredit(SubjectFormat typeOfCredit)
     {
         _typeOfCredit = typeOfCredit;
         return this;
     }
 
-    public SubjectBuilder AddPoints(EnumToExam points)
+    public SubjectBuilder AddPoints(InfoPoints points)
     {
         _points = points;
         return this;
@@ -102,6 +102,16 @@ public class SubjectBuilder
         if (_creator == null)
         {
             throw new InvalidOperationException("Creator must be provided.");
+        }
+
+        if (_typeOfCredit == null)
+        {
+            throw new InvalidOperationException("Type of creator must be provided.");
+        }
+
+        if (_points == null)
+        {
+            throw new InvalidOperationException("Points must be provided.");
         }
 
         return new Subject(_name, _id, _labWorks, _lecMaterials, _typeOfCredit, _points, _creator);

@@ -1,46 +1,42 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
-using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
+using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public class LectureMaterialRepository : ILectureMaterialRepository
 {
-    private readonly Dictionary<Id, LectureMaterial> _lectureMaterials;
+    private readonly List<LectureMaterial> _lectureMaterials;
 
     public LectureMaterialRepository()
     {
-        _lectureMaterials = new Dictionary<Id, LectureMaterial>();
+        _lectureMaterials = new List<LectureMaterial>();
     }
 
     public LectureMaterial? Add(LectureMaterial lectureMaterial)
     {
-        if (_lectureMaterials.ContainsKey(lectureMaterial.Id))
+        if (_lectureMaterials.Any(lm => lm.Equals(lectureMaterial)))
         {
             return null;
         }
 
-        _lectureMaterials[lectureMaterial.Id] = lectureMaterial;
+        _lectureMaterials.Add(lectureMaterial);
         return lectureMaterial;
     }
 
-    public LectureMaterial? Delete(Id id)
+    public LectureMaterial? Delete(ValueObjectId id)
     {
-        if (_lectureMaterials.TryGetValue(id, out LectureMaterial? lectureMaterial))
+        LectureMaterial? materialToRemove = _lectureMaterials.FirstOrDefault(lm => lm.Id.Equals(id));
+        if (materialToRemove != null)
         {
-            _lectureMaterials.Remove(id);
-            return lectureMaterial;
+            _lectureMaterials.Remove(materialToRemove);
+            return materialToRemove;
         }
 
         return null;
     }
 
-    public LectureMaterial? GetById(Id id)
+    public LectureMaterial? GetById(ValueObjectId id)
     {
-        if (_lectureMaterials.TryGetValue(id, out LectureMaterial? lectureMaterial))
-        {
-            return lectureMaterial;
-        }
-
-        return null;
+        return _lectureMaterials.FirstOrDefault(lm => lm.Id.Equals(id));
     }
 }

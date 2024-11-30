@@ -1,46 +1,42 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
-using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
+using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public class LaboratoryWorkRepository : ILaboratoryWorkRepository
 {
-    private readonly Dictionary<Id, LaboratoryWork> _laboratoryWorks;
+    private readonly List<LaboratoryWork> _laboratoryWorks;
 
     public LaboratoryWorkRepository()
     {
-        _laboratoryWorks = new Dictionary<Id, LaboratoryWork>();
+        _laboratoryWorks = new List<LaboratoryWork>();
     }
 
     public LaboratoryWork? Add(LaboratoryWork laboratoryWork)
     {
-        if (_laboratoryWorks.ContainsKey(laboratoryWork.Id))
+        if (_laboratoryWorks.Any(lw => lw.Id.Equals(laboratoryWork.Id)))
         {
             return null;
         }
 
-        _laboratoryWorks[laboratoryWork.Id] = laboratoryWork;
+        _laboratoryWorks.Add(laboratoryWork);
         return laboratoryWork;
     }
 
-    public LaboratoryWork? Delete(Id id)
+    public LaboratoryWork? Delete(ValueObjectId id)
     {
-        if (_laboratoryWorks.TryGetValue(id, out LaboratoryWork? laboratoryWork))
+        LaboratoryWork? laboratoryWork = _laboratoryWorks.FirstOrDefault(lw => lw.Id.Equals(id));
+        if (laboratoryWork != null)
         {
-            _laboratoryWorks.Remove(id);
+            _laboratoryWorks.Remove(laboratoryWork);
             return laboratoryWork;
         }
 
         return null;
     }
 
-    public LaboratoryWork? GetById(Id id)
+    public LaboratoryWork? GetById(ValueObjectId id)
     {
-        if (_laboratoryWorks.TryGetValue(id, out LaboratoryWork? laboratoryWork))
-        {
-            return laboratoryWork;
-        }
-
-        return null;
+        return _laboratoryWorks.FirstOrDefault(lw => lw.Id.Equals(id));
     }
 }

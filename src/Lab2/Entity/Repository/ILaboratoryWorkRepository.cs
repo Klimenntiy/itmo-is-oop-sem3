@@ -1,5 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
-using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
+using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
@@ -7,7 +7,7 @@ public interface ILaboratoryWorkRepository
 {
     LaboratoryWork? Add(LaboratoryWork laboratoryWork);
 
-    LaboratoryWork? Delete(Id id);
+    LaboratoryWork? Delete(ValueObjectId id);
 
-    LaboratoryWork? GetById(Id id);
+    LaboratoryWork? GetById(ValueObjectId id);
 }

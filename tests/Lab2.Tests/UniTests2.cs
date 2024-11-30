@@ -57,8 +57,8 @@ public class UniTests2
         builderSubject1.AddCreator(user1);
         builderSubject1.AddLabWork(laboratoryWorks);
         builderSubject1.AddLectureMaterial(lecMaterials);
-        builderSubject1.AddTypeOfCredit(EnumToCredit.Exam);
-        builderSubject1.AddPoints(EnumToExam.Grade5);
+        builderSubject1.AddTypeOfCredit(SubjectFormat.Exam);
+        builderSubject1.AddPoints(InfoPoints.ExamInfo);
         Subject subject1 = builderSubject1.Build();
 
         var subjects = new List<Subject>();
@@ -77,7 +77,7 @@ public class UniTests2
         Assert.True(resSub == new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
 
         var laboratoryWorkDirector = new LaboratoryWorkDirector(builderLabWork1);
-        (LaboratoryWork? LabWork, FinalResult Res) newLab =
+        ModifyResultLab newLab =
             laboratoryWorkDirector.Modify(laboratoryWork1, user2, "Matematika");
         FinalResult resLab = newLab.Res;
         Assert.True(resLab == new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
@@ -134,8 +134,8 @@ public class UniTests2
         builderSubject1.AddCreator(user1);
         builderSubject1.AddLabWork(laboratoryWorks);
         builderSubject1.AddLectureMaterial(lecMaterials);
-        builderSubject1.AddTypeOfCredit(EnumToCredit.Exam);
-        builderSubject1.AddPoints(EnumToExam.Grade4);
+        builderSubject1.AddTypeOfCredit(SubjectFormat.Exam);
+        builderSubject1.AddPoints(InfoPoints.ExamInfo);
         Subject subject1 = builderSubject1.Build();
 
         var subjects = new List<Subject>();
@@ -148,7 +148,7 @@ public class UniTests2
         builderProgram1.AddId(id5);
         Program program1 = builderProgram1.Build();
 
-        Subject cloneSub = subject1.CloneSubject(subject1, "dis math", lecMaterials, laboratoryWorks, user1, EnumToCredit.Pass, EnumToExam.Grade3);
+        Subject cloneSub = subject1.CloneSubject(subject1, "dis math", lecMaterials, laboratoryWorks, user1, SubjectFormat.Pass, InfoPoints.ExamInfo);
         Assert.True(subject1.Id == cloneSub.Id);
 
         LaboratoryWork cloneLab = laboratoryWork1.CloneWork(laboratoryWork1, "Dis Math lab", user1, "not fart", "be cool", points1);
@@ -203,8 +203,8 @@ public class UniTests2
         builderSubject1.AddCreator(user1);
         builderSubject1.AddLabWork(laboratoryWorks);
         builderSubject1.AddLectureMaterial(lecMaterials);
-        builderSubject1.AddTypeOfCredit(EnumToCredit.Exam);
-        builderSubject1.AddPoints(EnumToExam.Grade3);
+        builderSubject1.AddTypeOfCredit(SubjectFormat.Exam);
+        builderSubject1.AddPoints(InfoPoints.ExamInfo);
         Subject subject1 = builderSubject1.Build();
 
         var subjects = new List<Subject>();

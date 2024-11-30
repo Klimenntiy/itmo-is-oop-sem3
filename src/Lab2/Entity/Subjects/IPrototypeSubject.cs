@@ -13,6 +13,6 @@ public interface IPrototypeSubject<T> where T : IPrototypeSubject<T>
         IReadOnlyCollection<LectureMaterial> newLectureMaterials,
         IReadOnlyCollection<LaboratoryWork> newLabWorks,
         User newCreator,
-        EnumToCredit newTypeOfCredit,
-        EnumToExam newPoints);
+        SubjectFormat newTypeOfCredit,
+        InfoPoints newPoints);
 }

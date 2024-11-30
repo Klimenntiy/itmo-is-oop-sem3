@@ -13,7 +13,7 @@ public class LaboratoryWorkDirector
         _builder = builder;
     }
 
-    public (LaboratoryWork? LaboratoryWork, FinalResult Res) Modify(
+    public ModifyResultLab Modify(
         LaboratoryWork existingWork,
         User creator,
         string? newName = null,
@@ -31,9 +31,9 @@ public class LaboratoryWorkDirector
                 .AddEvaluationCriteria(newEvaluationCriteria ?? existingWork.EvaluationCriteria)
                 .AddNumberOfPoints(newNumberOfPoints ?? existingWork.NumberOfPoints);
 
-            return (_builder.BuildLaboratoryWork(), new FinalResult.Success());
+            return new ModifyResultLab(_builder.BuildLaboratoryWork(), new FinalResult.Success());
         }
 
-        return (null, new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
+        return new ModifyResultLab(null, new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
     }
 }

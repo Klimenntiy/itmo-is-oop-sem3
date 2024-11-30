@@ -19,8 +19,8 @@ public class SubjectDirector
         User creator,
         string? newName = null,
         IReadOnlyCollection<LectureMaterial>? newLecMaterials = null,
-        EnumToCredit? newTypeOfCredit = null,
-        EnumToExam? newPoints = null)
+        SubjectFormat? newTypeOfCredit = null,
+        InfoPoints? newPoints = null)
     {
         if (existingSubject.Creator == creator)
         {

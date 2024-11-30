@@ -1,5 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
-using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
+using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
@@ -7,7 +7,7 @@ public interface ILectureMaterialRepository
 {
     LectureMaterial? Add(LectureMaterial lectureMaterial);
 
-    LectureMaterial? Delete(Id id);
+    LectureMaterial? Delete(ValueObjectId id);
 
-    LectureMaterial? GetById(Id id);
+    LectureMaterial? GetById(ValueObjectId id);
 }
