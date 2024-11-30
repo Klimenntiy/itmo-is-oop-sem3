@@ -2,7 +2,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Loggers;
 
 public class MessageLogger : ILogger
 {
-    private readonly IEnumerable<string> _log;
+    private readonly List<string> _log = new List<string>();
+
+    public IEnumerable<string> UserMessages => _log;
 
     public MessageLogger()
     {
@@ -12,6 +14,6 @@ public class MessageLogger : ILogger
     public void LogMessage(string message)
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
-        _log.Append(message);
+        _log.Add(message);
     }
 }

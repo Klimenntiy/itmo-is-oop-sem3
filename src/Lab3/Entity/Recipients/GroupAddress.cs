@@ -6,7 +6,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 
 public class GroupAddress : IAddress
 {
-    private readonly IEnumerable<IAddress> _addresses = [];
+    private readonly List<IAddress> _addresses = new List<IAddress>();
+
+    public IEnumerable<IAddress> UserMessages => _addresses;
 
     public void AddAddress(IAddress address)
     {
@@ -15,7 +17,7 @@ public class GroupAddress : IAddress
             throw new ArgumentNullException(nameof(address), "Address cant be null.");
         }
 
-        _addresses.Append(address);
+        _addresses.Add(address);
     }
 
     public FinalResult AcceptMessage(IMessage message)

@@ -7,7 +7,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
 // Код добавляет новую функциональность (фильтрацию) к объекту (адресу), не изменяя при этом его интерфейс. Поэтому, да, декоратор тут есть и работает корректно.
 public class FilterAddress : IAddress
 {
-    private readonly IEnumerable<IMessageFilter> _filters = new List<IMessageFilter>();
+    private readonly List<IMessageFilter> _filters = new List<IMessageFilter>();
+
+    public IEnumerable<IMessageFilter> UserMessages => _filters;
+
     private readonly IAddress _address;
     private readonly int _importanceThreshold;
 
@@ -20,14 +23,14 @@ public class FilterAddress : IAddress
     public void AddFilter(IMessageFilter filter)
     {
         if (filter == null) throw new ArgumentNullException(nameof(filter), "Filter cannot be null.");
-        _filters.Append(filter);
+        _filters.Add(filter);
     }
 
     public FinalResult AcceptMessage(IMessage message)
     {
         ArgumentNullException.ThrowIfNull(message, nameof(message));
 
-        if (_filters.Any())
+        if (_filters.Count != 0)
         {
             foreach (IMessageFilter filter in _filters)
             {
