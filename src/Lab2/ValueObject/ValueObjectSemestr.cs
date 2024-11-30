@@ -2,7 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 public class ValueObjectSemestr
 {
-    public sealed record Semestr
+    public record Semestr
     {
         public Semestr(double value)
         {
@@ -12,11 +12,6 @@ public class ValueObjectSemestr
             }
 
             Value = value;
-        }
-
-        public static implicit operator double(Semestr semestr)
-        {
-            return semestr.Value;
         }
 
         public double Value { get; }

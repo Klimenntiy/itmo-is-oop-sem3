@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.Entity.Enams;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Users;
@@ -13,13 +14,13 @@ public class SubjectDirector
         _builder = builder;
     }
 
-    public (Subject? Sub, FinalResult Res) Modify(
+    public ModifyResultSub Modify(
         Subject existingSubject,
         User creator,
         string? newName = null,
         IReadOnlyCollection<LectureMaterial>? newLecMaterials = null,
-        string? newTypeOfCredit = null,
-        string? newPoints = null)
+        EnumToCredit? newTypeOfCredit = null,
+        EnumToExam? newPoints = null)
     {
         if (existingSubject.Creator == creator)
         {
@@ -28,9 +29,9 @@ public class SubjectDirector
                 .AddTypeOfCredit(newTypeOfCredit ?? existingSubject.TypeOfCredit)
                 .AddPoints(newPoints ?? existingSubject.Points);
 
-            return (_builder.Build(), new FinalResult.Success());
+            return new ModifyResultSub(_builder.Build(), new FinalResult.Success());
         }
 
-        return (null, new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
+        return new ModifyResultSub(null, new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
     }
 }

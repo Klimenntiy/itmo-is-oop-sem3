@@ -12,7 +12,7 @@ public class LectureMaterialDirector
         _builder = builder;
     }
 
-    public (LectureMaterial? LecMaterial, FinalResult Res) Modify(
+    public ModifyResultLec Modify(
         LectureMaterial existingMaterial,
         User creator,
         string? newName = null,
@@ -28,9 +28,9 @@ public class LectureMaterialDirector
                 .AddDescription(newDescription ?? existingMaterial.Description)
                 .AddContent(newContent ?? existingMaterial.Content);
 
-            return (_builder.BuildLectureMaterial(), new FinalResult.Success());
+            return new ModifyResultLec(_builder.BuildLectureMaterial(), new FinalResult.Success());
         }
 
-        return (null, new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
+        return new ModifyResultLec(null, new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
     }
 }

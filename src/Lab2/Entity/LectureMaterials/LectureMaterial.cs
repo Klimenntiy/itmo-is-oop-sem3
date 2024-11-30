@@ -14,7 +14,7 @@ public class LectureMaterial : IPrototypeLecMat<LectureMaterial>
         Creator = creator;
     }
 
-    public Id Id { get; private set; }
+    public Id Id { get; }
 
     public string Name { get; private set; }
 
@@ -26,11 +26,13 @@ public class LectureMaterial : IPrototypeLecMat<LectureMaterial>
 
     public LectureMaterial CloneMaterial(LectureMaterial existingMaterial, string newName, string newDescription, string newContent, User newCreator)
     {
-        existingMaterial.Name = newName;
-        existingMaterial.Description = newDescription;
-        existingMaterial.Content = newContent;
-        existingMaterial.Creator = newCreator;
+        LectureMaterialBuilder builder = new LectureMaterialBuilder()
+            .AddId(existingMaterial.Id)
+            .AddName(newName)
+            .AddDescription(newDescription)
+            .AddContent(newContent)
+            .AddCreator(newCreator);
 
-        return existingMaterial;
+        return builder.BuildLectureMaterial();
     }
 }

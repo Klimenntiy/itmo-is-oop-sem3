@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.Entity.Enams;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Model;
@@ -13,8 +14,8 @@ public class SubjectBuilder
     private IReadOnlyCollection<LaboratoryWork>? _labWorks;
     private IReadOnlyCollection<LectureMaterial>? _lecMaterials;
     private User? _creator;
-    private string? _typeOfCredit;
-    private string? _points;
+    private EnumToCredit _typeOfCredit;
+    private EnumToExam _points;
 
     public SubjectBuilder AddName(string name)
     {
@@ -46,13 +47,13 @@ public class SubjectBuilder
         return this;
     }
 
-    public SubjectBuilder AddTypeOfCredit(string typeOfCredit)
+    public SubjectBuilder AddTypeOfCredit(EnumToCredit typeOfCredit)
     {
         _typeOfCredit = typeOfCredit;
         return this;
     }
 
-    public SubjectBuilder AddPoints(string points)
+    public SubjectBuilder AddPoints(EnumToExam points)
     {
         _points = points;
         return this;
@@ -101,16 +102,6 @@ public class SubjectBuilder
         if (_creator == null)
         {
             throw new InvalidOperationException("Creator must be provided.");
-        }
-
-        if (string.IsNullOrWhiteSpace(_typeOfCredit))
-        {
-            throw new InvalidOperationException("Type of credit must be provided.");
-        }
-
-        if (string.IsNullOrWhiteSpace(_points))
-        {
-            throw new InvalidOperationException("Points must be provided.");
         }
 
         return new Subject(_name, _id, _labWorks, _lecMaterials, _typeOfCredit, _points, _creator);

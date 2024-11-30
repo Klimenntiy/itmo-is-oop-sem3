@@ -1,14 +1,15 @@
+using Itmo.ObjectOrientedProgramming.Lab2.Entity.Enams;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Model;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Users;
-using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
+using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Subjects;
 
 public class Subject : IPrototypeSubject<Subject>
 {
-    public Subject(string name, ValueObjectId.Id id, IReadOnlyCollection<LaboratoryWork> labWorks, IReadOnlyCollection<LectureMaterial> lecMaterials, string typeOfCredit, string points, User creator)
+    public Subject(string name, Id id, IReadOnlyCollection<LaboratoryWork> labWorks, IReadOnlyCollection<LectureMaterial> lecMaterials, EnumToCredit typeOfCredit, EnumToExam points, User creator)
     {
         Name = name;
         Id = id;
@@ -21,7 +22,7 @@ public class Subject : IPrototypeSubject<Subject>
 
     public string Name { get; private set; }
 
-    public ValueObjectId.Id Id { get; private set; }
+    public Id Id { get; private set; }
 
     public IReadOnlyCollection<LaboratoryWork> LabWorks { get; private set; }
 
@@ -29,9 +30,9 @@ public class Subject : IPrototypeSubject<Subject>
 
     public User Creator { get; private set; }
 
-    public string TypeOfCredit { get; private set; }
+    public EnumToCredit TypeOfCredit { get; private set; }
 
-    public string Points { get; private set; }
+    public EnumToExam Points { get; private set; }
 
     public static FinalResult CheckOfScore(IReadOnlyCollection<LaboratoryWork> laboratoryWorks)
     {
@@ -50,15 +51,24 @@ public class Subject : IPrototypeSubject<Subject>
         return new FinalResult.Success();
     }
 
-    public Subject CloneSubject(Subject existingSubject, string newName, IReadOnlyCollection<LectureMaterial> newLectureMaterials, IReadOnlyCollection<LaboratoryWork> newLabWorks, User newCreator, string newTypeOfCredit, string newPoints)
+    public Subject CloneSubject(
+        Subject existingSubject,
+        string newName,
+        IReadOnlyCollection<LectureMaterial> newLectureMaterials,
+        IReadOnlyCollection<LaboratoryWork> newLabWorks,
+        User newCreator,
+        EnumToCredit newTypeOfCredit,
+        EnumToExam newPoints)
     {
-        existingSubject.Name = newName;
-        existingSubject.LecMaterials = newLectureMaterials;
-        existingSubject.LabWorks = newLabWorks;
-        existingSubject.TypeOfCredit = newTypeOfCredit;
-        existingSubject.Points = newPoints;
-        existingSubject.Creator = newCreator;
+        SubjectBuilder builder = new SubjectBuilder()
+            .AddId(existingSubject.Id)
+            .AddName(newName)
+            .AddLectureMaterial(newLectureMaterials)
+            .AddLabWork(newLabWorks)
+            .AddCreator(newCreator)
+            .AddTypeOfCredit(newTypeOfCredit)
+            .AddPoints(newPoints);
 
-        return existingSubject;
+        return builder.Build();
     }
 }

@@ -68,11 +68,6 @@ public class LectureMaterialBuilder
             throw new InvalidOperationException("Creator must be provided.");
         }
 
-        if (_id <= 0)
-        {
-            throw new InvalidOperationException("ID must be greater than zero.");
-        }
-
         return new LectureMaterial(_id, _name, _description, _content, _creator);
     }
 }

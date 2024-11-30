@@ -24,5 +24,5 @@ public class Program
 
     public Semestr Semestr { get; }
 
-    public User Director { get;  }
+    public User Director { get; }
 }

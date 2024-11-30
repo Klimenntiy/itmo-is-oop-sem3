@@ -1,46 +1,42 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Programs;
-using static Itmo.ObjectOrientedProgramming.Lab2.ValueObject.ValueObjectId;
+using Itmo.ObjectOrientedProgramming.Lab2.ValueObject;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entity.Repository;
 
 public class ProgramRepository : IProgramRepository
 {
-    private readonly Dictionary<Id, Program> _programs;
+    private readonly List<Program> _programs;
 
     public ProgramRepository()
     {
-        _programs = new Dictionary<Id, Program>();
+        _programs = new List<Program>();
     }
 
     public Program? Add(Program program)
     {
-        if (_programs.ContainsKey(program.Id))
+        if (_programs.Any(p => p.Id.Equals(program.Id)))
         {
             return null;
         }
 
-        _programs[program.Id] = program;
+        _programs.Add(program);
         return program;
     }
 
-    public Program? Delete(Id id)
+    public Program? Delete(ValueObjectId id)
     {
-        if (_programs.TryGetValue(id, out Program? program))
+        Program? program = _programs.FirstOrDefault(p => p.Id.Equals(id));
+        if (program != null)
         {
-            _programs.Remove(id);
+            _programs.Remove(program);
             return program;
         }
 
         return null;
     }
 
-    public Program? GetById(Id id)
+    public Program? GetById(ValueObjectId id)
     {
-        if (_programs.TryGetValue(id, out Program? program))
-        {
-            return program;
-        }
-
-        return null;
+        return _programs.FirstOrDefault(p => p.Id.Equals(id));
     }
 }

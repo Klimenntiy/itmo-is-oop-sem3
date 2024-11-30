@@ -71,11 +71,6 @@ public class LaboratoryWorkBuilder
             throw new InvalidOperationException("Number of points must be provided.");
         }
 
-        if (_id <= 0)
-        {
-            throw new InvalidOperationException("ID must be greater than zero.");
-        }
-
         if (string.IsNullOrWhiteSpace(_evaluationCriteria))
         {
             throw new InvalidOperationException("Evaluation criteria must be provided.");

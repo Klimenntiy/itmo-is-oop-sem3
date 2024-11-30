@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.Entity.Enams;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Model;
@@ -56,10 +57,8 @@ public class UniTests2
         builderSubject1.AddCreator(user1);
         builderSubject1.AddLabWork(laboratoryWorks);
         builderSubject1.AddLectureMaterial(lecMaterials);
-        builderSubject1.AddTypeOfCredit("examination");
-        builderSubject1.AddPoints("60 - 3" +
-                                  "74 - 4" +
-                                  "85+ - 5");
+        builderSubject1.AddTypeOfCredit(EnumToCredit.Exam);
+        builderSubject1.AddPoints(EnumToExam.Grade5);
         Subject subject1 = builderSubject1.Build();
 
         var subjects = new List<Subject>();
@@ -73,7 +72,7 @@ public class UniTests2
         Program program1 = builderProgram1.Build();
 
         var subjectDirector = new SubjectDirector(builderSubject1);
-        (Subject? Sub, FinalResult Res) newSub = subjectDirector.Modify(subject1, user2, "Matematika");
+        ModifyResultSub newSub = subjectDirector.Modify(subject1, user2, "Matematika");
         FinalResult resSub = newSub.Res;
         Assert.True(resSub == new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
 
@@ -84,7 +83,7 @@ public class UniTests2
         Assert.True(resLab == new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
 
         var lectureMaterialDirector = new LectureMaterialDirector(builderLecMaterial1);
-        (LectureMaterial? LecMaterial, FinalResult Res) newLec =
+        ModifyResultLec newLec =
             lectureMaterialDirector.Modify(lecMaterial1, user2, "Matematika");
         FinalResult resLec = newLec.Res;
         Assert.True(resLec == new FinalResult.ItsNotTheAuthorWhoChangesTheEssence());
@@ -135,10 +134,8 @@ public class UniTests2
         builderSubject1.AddCreator(user1);
         builderSubject1.AddLabWork(laboratoryWorks);
         builderSubject1.AddLectureMaterial(lecMaterials);
-        builderSubject1.AddTypeOfCredit("examination");
-        builderSubject1.AddPoints("60 - 3" +
-                                  "74 - 4" +
-                                  "85+ - 5");
+        builderSubject1.AddTypeOfCredit(EnumToCredit.Exam);
+        builderSubject1.AddPoints(EnumToExam.Grade4);
         Subject subject1 = builderSubject1.Build();
 
         var subjects = new List<Subject>();
@@ -151,7 +148,7 @@ public class UniTests2
         builderProgram1.AddId(id5);
         Program program1 = builderProgram1.Build();
 
-        Subject cloneSub = subject1.CloneSubject(subject1, "dis math", lecMaterials, laboratoryWorks, user1, "Zachet", "60+ - zachet");
+        Subject cloneSub = subject1.CloneSubject(subject1, "dis math", lecMaterials, laboratoryWorks, user1, EnumToCredit.Pass, EnumToExam.Grade3);
         Assert.True(subject1.Id == cloneSub.Id);
 
         LaboratoryWork cloneLab = laboratoryWork1.CloneWork(laboratoryWork1, "Dis Math lab", user1, "not fart", "be cool", points1);
@@ -206,10 +203,8 @@ public class UniTests2
         builderSubject1.AddCreator(user1);
         builderSubject1.AddLabWork(laboratoryWorks);
         builderSubject1.AddLectureMaterial(lecMaterials);
-        builderSubject1.AddTypeOfCredit("examination");
-        builderSubject1.AddPoints("60 - 3" +
-                                  "74 - 4" +
-                                  "85+ - 5");
+        builderSubject1.AddTypeOfCredit(EnumToCredit.Exam);
+        builderSubject1.AddPoints(EnumToExam.Grade3);
         Subject subject1 = builderSubject1.Build();
 
         var subjects = new List<Subject>();

@@ -36,14 +36,14 @@ public class LaboratoryWork : IPrototypeLabWork<LaboratoryWork>
         string newEvaluationCriteria,
         NumberOfPoints newNumberOfPoints)
     {
-        var newWork = new LaboratoryWork(
-            existingWork.Id,
-            newName,
-            newDescription,
-            newEvaluationCriteria,
-            newNumberOfPoints,
-            newCreator);
+        LaboratoryWorkBuilder builder = new LaboratoryWorkBuilder()
+            .AddId(existingWork.Id)
+            .AddName(newName)
+            .AddDescription(newDescription)
+            .AddEvaluationCriteria(newEvaluationCriteria)
+            .AddNumberOfPoints(newNumberOfPoints)
+            .AddCreator(newCreator);
 
-        return newWork;
+        return builder.BuildLaboratoryWork();
     }
 }

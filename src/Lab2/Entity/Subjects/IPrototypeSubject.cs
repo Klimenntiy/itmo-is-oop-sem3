@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.Entity.Enams;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LaboratoryWorks;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.LectureMaterials;
 using Itmo.ObjectOrientedProgramming.Lab2.Entity.Users;
@@ -12,6 +13,6 @@ public interface IPrototypeSubject<T> where T : IPrototypeSubject<T>
         IReadOnlyCollection<LectureMaterial> newLectureMaterials,
         IReadOnlyCollection<LaboratoryWork> newLabWorks,
         User newCreator,
-        string newTypeOfCredit,
-        string newPoints);
+        EnumToCredit newTypeOfCredit,
+        EnumToExam newPoints);
 }
