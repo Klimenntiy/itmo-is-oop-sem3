@@ -94,7 +94,6 @@ public class UniTests
     [Fact]
     public void LogIsWrittenWhenMessageArrives()
     {
-        // Arrange
         var messageBuilder = new MessageBuilder();
         messageBuilder.WithHeader("meow");
         messageBuilder.WithBody("this is a message");

@@ -15,10 +15,11 @@ public class User
     {
         Name = user.Name;
         Title = user.Title;
-        UserMessages = new List<UserMessage?>(user.UserMessages);
     }
 
-    public ICollection<UserMessage?> UserMessages { get; } = [];
+    private readonly List<UserMessage?> _userMessages = new List<UserMessage?>();
+
+    public IEnumerable<UserMessage?> UserMessages => _userMessages;
 
     private string Name { get; }
 
@@ -33,7 +34,7 @@ public class User
     public void AcceptMessage(IMessage message)
     {
         var userMessage = new UserMessage(message, false);
-        UserMessages.Add(userMessage);
+        _userMessages.Add(userMessage);
     }
 
     public FinalResult MessageIsRead(int index)
