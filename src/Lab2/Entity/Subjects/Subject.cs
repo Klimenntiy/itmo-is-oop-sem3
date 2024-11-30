@@ -60,7 +60,20 @@ public class Subject : IPrototypeSubject<Subject>
         SubjectFormat newTypeOfCredit,
         InfoPoints newPoints)
     {
-        SubjectBuilder builder = new SubjectBuilder()
+        SubjectBuilder builder = CreateBuilder(existingSubject, newName, newLectureMaterials, newLabWorks, newCreator, newTypeOfCredit, newPoints);
+        return builder.Build();
+    }
+
+    private SubjectBuilder CreateBuilder(
+        Subject existingSubject,
+        string newName,
+        IReadOnlyCollection<LectureMaterial> newLectureMaterials,
+        IReadOnlyCollection<LaboratoryWork> newLabWorks,
+        User newCreator,
+        SubjectFormat newTypeOfCredit,
+        InfoPoints newPoints)
+    {
+        return new SubjectBuilder()
             .AddId(existingSubject.Id)
             .AddName(newName)
             .AddLectureMaterial(newLectureMaterials)
@@ -68,7 +81,5 @@ public class Subject : IPrototypeSubject<Subject>
             .AddCreator(newCreator)
             .AddTypeOfCredit(newTypeOfCredit)
             .AddPoints(newPoints);
-
-        return builder.Build();
     }
 }
