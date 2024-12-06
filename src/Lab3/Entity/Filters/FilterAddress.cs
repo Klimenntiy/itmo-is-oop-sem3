@@ -4,7 +4,6 @@ using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Filters;
 
-// Код добавляет новую функциональность (фильтрацию) к объекту (адресу), не изменяя при этом его интерфейс. Поэтому, да, декоратор тут есть и работает корректно.
 public class FilterAddress : IAddress
 {
     private readonly List<IMessageFilter> _filters = new List<IMessageFilter>();

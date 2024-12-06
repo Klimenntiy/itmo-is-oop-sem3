@@ -1,10 +1,9 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
 using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
-using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
 
-public class GroupAddress : IAddress
+public class GroupAddress
 {
     private readonly List<IAddress> _addresses = new List<IAddress>();
 
@@ -14,24 +13,22 @@ public class GroupAddress : IAddress
     {
         if (address == null)
         {
-            throw new ArgumentNullException(nameof(address), "Address cant be null.");
+            throw new ArgumentNullException(nameof(address), "Address can't be null.");
         }
 
         _addresses.Add(address);
     }
 
-    public FinalResult AcceptMessage(IMessage message)
+    public void AcceptGroupMessage(IMessage message)
     {
         if (message == null)
         {
-            throw new ArgumentNullException(nameof(message), "Message cant be null.");
+            throw new ArgumentNullException(nameof(message), "Message can't be null.");
         }
 
         foreach (IAddress address in _addresses)
         {
-            return address.AcceptMessage(message);
+            address.AcceptMessage(message);
         }
-
-        return new FinalResult.Success();
     }
 }
