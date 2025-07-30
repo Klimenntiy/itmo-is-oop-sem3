@@ -4,4 +4,10 @@
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab1</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Model\SuccessResult.cs" />
+      <Compile Remove="Model\FailureResult.cs" />
+      <Compile Remove="Model\Result.cs" />
+    </ItemGroup>
+
 </Project>
