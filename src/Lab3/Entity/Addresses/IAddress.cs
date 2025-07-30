@@ -1,0 +1,9 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Addresses;
+
+public interface IAddress
+{
+    public FinalResult AcceptMessage(IMessage message);
+}

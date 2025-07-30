@@ -1,0 +1,47 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.Entity.Model;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Entity.Recipients;
+
+public class User
+{
+    public User(string name, string title)
+    {
+        Name = name ?? throw new ArgumentNullException(nameof(name), "Name cant be null.");
+        Title = title ?? throw new ArgumentNullException(nameof(title), "Title cant be null.");
+    }
+
+    public User(User user)
+    {
+        Name = user.Name;
+        Title = user.Title;
+    }
+
+    private readonly List<UserMessage?> _userMessages = new List<UserMessage?>();
+
+    public IEnumerable<UserMessage?> UserMessages => _userMessages;
+
+    private string Name { get; }
+
+    private string Title { get; }
+
+    public static bool CheckStatus(UserMessage? message)
+    {
+        ArgumentNullException.ThrowIfNull(message);
+        return message.IsRead;
+    }
+
+    public void AcceptMessage(IMessage message)
+    {
+        var userMessage = new UserMessage(message, false);
+        _userMessages.Add(userMessage);
+    }
+
+    public FinalResult MessageIsRead(int index)
+    {
+        UserMessage? message = UserMessages.ElementAtOrDefault(index);
+        ArgumentNullException.ThrowIfNull(message);
+        message.MessageRead();
+        return message.MessageRead().Res;
+    }
+}
